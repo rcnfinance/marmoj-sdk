@@ -1,0 +1,4 @@
+marmoj:
+  client-address: https://ropsten.infura.io/v3/553aebb642dd4f529c70cec765c43840
+  admin-client: false
+  private-key:
