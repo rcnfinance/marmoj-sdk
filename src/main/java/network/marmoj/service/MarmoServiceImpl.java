@@ -16,13 +16,14 @@ public class MarmoServiceImpl implements MarmoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     @Autowired
     private Web3j web3j;
+    @Autowired
+    private Credentials credentials;
 
     @Override
     public void connect() throws IOException {
         LOGGER.info("Connected to Ethereum client version: "
                 + web3j.web3ClientVersion().send().getWeb3ClientVersion());
 
-        Credentials credentials = Credentials.create("512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
         LOGGER.info("Credentials loaded: " + credentials.getAddress());
     }
 }

@@ -1,4 +1,5 @@
 marmoj:
   client-address: https://ropsten.infura.io/v3/553aebb642dd4f529c70cec765c43840
   admin-client: false
-  private-key:
+wallet:
+  private-key: 512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a
