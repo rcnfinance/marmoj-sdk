@@ -1,5 +1,6 @@
 package network.marmoj;
 
+import network.marmoj.model.contracts.MarmoCore;
 import network.marmoj.service.MarmoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -13,7 +14,7 @@ import static java.lang.System.exit;
 public class Application implements CommandLineRunner {
 
     @Autowired
-    private MarmoService marmoService;
+    private MarmoService<MarmoCore> service;
 
     public static void main(String[] args) throws Exception {
 
@@ -26,7 +27,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        marmoService.connect();
+        service.getCredentials();
         exit(0);
     }
 }

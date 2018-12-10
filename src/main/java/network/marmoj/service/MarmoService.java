@@ -1,9 +1,10 @@
 package network.marmoj.service;
 
-import java.io.IOException;
+import org.web3j.crypto.Credentials;
+import org.web3j.tx.Contract;
 
-public interface MarmoService {
+public interface MarmoService<C extends Contract> {
 
-    void connect() throws IOException;
+    Credentials getCredentials();
 
 }

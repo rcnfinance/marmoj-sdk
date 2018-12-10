@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-
-import java.io.IOException;
+import org.web3j.tx.Contract;
 
 @Service
-public class MarmoServiceImpl implements MarmoService {
+public class MarmoServiceImpl<C extends Contract> implements MarmoService<C> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
     @Autowired
@@ -19,11 +18,9 @@ public class MarmoServiceImpl implements MarmoService {
     @Autowired
     private Credentials credentials;
 
-    @Override
-    public void connect() throws IOException {
-        LOGGER.info("Connected to Ethereum client version: "
-                + web3j.web3ClientVersion().send().getWeb3ClientVersion());
-
+    public Credentials getCredentials() {
         LOGGER.info("Credentials loaded: " + credentials.getAddress());
+        return credentials;
     }
+
 }

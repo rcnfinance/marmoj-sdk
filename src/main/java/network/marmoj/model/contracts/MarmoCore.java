@@ -1,4 +1,4 @@
-package network.marmoj.model;
+package network.marmoj.model.contracts;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
