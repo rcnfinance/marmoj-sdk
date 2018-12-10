@@ -1,6 +1,7 @@
 pragma solidity ^0.5.0;
 
 // File: contracts/commons/Signable.sol
+
 contract Signable {
 
     event AddedSigner(address signer);
@@ -26,14 +27,14 @@ contract Signable {
 // File: contracts/commons/SignatureDeserializer.sol
 
 library SignatureDeserializer {
-
+    
     /**
-      @dev Recovers address who signed the message
+      @dev Recovers address who signed the message 
       @param _hash operation ethereum signed message hash
-      @param _signature message `hash` signature
+      @param _signature message `hash` signature  
     */
     function recoverKey (
-        bytes32 _hash,
+        bytes32 _hash, 
         bytes memory _signature
     ) internal pure returns (address) {
         bytes32 r;
@@ -58,7 +59,7 @@ library SignatureDeserializer {
 // File: contracts/core/MarmoCore.sol
 
 contract MarmoCore is Signable {
-
+    
     mapping(bytes32 => address) public relayerOf;
     mapping(bytes32 => bool) public isCanceled;
 
@@ -102,12 +103,12 @@ contract MarmoCore is Signable {
             )
         );
     }
-
+    
     function dependenciesSatisfied(bytes32[] memory _dependencies) internal view returns (bool) {
         for (uint256 i; i < _dependencies.length; i++) {
             if (relayerOf[_dependencies[i]] == address(0)) return false;
         }
-
+        
         return true;
     }
 
@@ -122,10 +123,10 @@ contract MarmoCore is Signable {
         bytes memory _signature
     ) public returns (
         bool success,
-        bytes memory data
+        bytes memory data 
     ) {
         bytes32 hashTransaction = encodeTransactionData(_dependencies, _to, _value, _data, _minGasLimit, _maxGasPrice, _salt);
-
+        
         require(tx.gasprice <= _maxGasPrice);
         require(!isCanceled[hashTransaction], "Transaction was canceled");
         require(relayerOf[hashTransaction] == address(0), "Transaction already relayed");
@@ -136,7 +137,7 @@ contract MarmoCore is Signable {
         (success, data) = _to.call.value(_value)(_data);
 
         relayerOf[hashTransaction] = msg.sender;
-
+        
         emit Relayed(
             hashTransaction,
             _dependencies,
@@ -159,7 +160,6 @@ contract MarmoCore is Signable {
         address currentSigner = SignatureDeserializer.recoverKey(transactionHash, signature);
         require(isSigner(currentSigner), "Signature not provided by signer");
     }
-
+    
     function() external payable {}
-
 }
