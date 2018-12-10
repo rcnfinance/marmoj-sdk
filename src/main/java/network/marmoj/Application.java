@@ -1,7 +1,7 @@
 package network.marmoj;
 
 import network.marmoj.builder.IntentBuilder;
-import network.marmoj.model.contracts.MarmoCore;
+import network.marmoj.client.MarmoCoreClient;
 import network.marmoj.model.core.Intent;
 import network.marmoj.service.MarmoService;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class Application implements CommandLineRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     @Autowired
-    private MarmoService<MarmoCore> service;
+    private MarmoService service;
 
     public static void main(String[] args) throws Exception {
 

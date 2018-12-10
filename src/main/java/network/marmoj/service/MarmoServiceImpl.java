@@ -1,7 +1,7 @@
 package network.marmoj.service;
 
 import network.marmoj.Application;
-import network.marmoj.model.contracts.MarmoCore;
+import network.marmoj.client.MarmoCoreClient;
 import network.marmoj.model.core.Intent;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -19,13 +19,13 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 @Service
-public class MarmoServiceImpl<C extends Contract> implements MarmoService<C> {
+public class MarmoServiceImpl implements MarmoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
     private Web3j web3j;
     private Credentials credentials;
-    private MarmoCore marmoCore;
+    private MarmoCoreClient marmoCoreClient;
 
     @Override
     public boolean setup(String nodeAddress, String privateKey) {
@@ -47,6 +47,28 @@ public class MarmoServiceImpl<C extends Contract> implements MarmoService<C> {
         return credentials;
     }
 
+    @Override
+    public byte[] encodeTransactionData(String contractAddress, Intent intent) throws Exception {
+
+        if (web3j == null || credentials == null) {
+            //FIXME up exception
+            return null;
+        }
+        if (marmoCoreClient == null) {
+            marmoCoreClient = MarmoCoreClient.load(contractAddress, web3j, credentials, new DefaultGasProvider());
+        }
+
+        RemoteCall<byte[]> remoteCall = marmoCoreClient.encodeTransactionData(intent.getDependencies(),
+                    intent.getTo(), intent.getValue(), intent.getData(), intent.getMinGasLimit(),
+                    intent.getMaxGasPrice(), intent.getSalt());
+
+        return remoteCall.send();
+    }
+
+    /**
+     * Private Metods
+     */
+
     private Web3jService buildService(String nodeAddress) {
         Web3jService web3jService;
 
@@ -62,28 +84,6 @@ public class MarmoServiceImpl<C extends Contract> implements MarmoService<C> {
 
         return web3jService;
     }
-
-    @Override
-    public byte[] encodeTransactionData(String contractAddress, Intent intent) throws Exception {
-
-        if (web3j == null || credentials == null) {
-            //FIXME up exception
-            return null;
-        }
-        if (marmoCore == null) {
-            marmoCore = MarmoCore.load(contractAddress, web3j, credentials, new DefaultGasProvider());
-        }
-
-        RemoteCall<byte[]> remoteCall = marmoCore.encodeTransactionData(intent.getDependencies(),
-                    intent.getTo(), intent.getValue(), intent.getData(), intent.getMinGasLimit(),
-                    intent.getMaxGasPrice(), intent.getSalt());
-
-        return remoteCall.send();
-    }
-
-    /**
-     * Private Metods
-     */
 
     private OkHttpClient createOkHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
