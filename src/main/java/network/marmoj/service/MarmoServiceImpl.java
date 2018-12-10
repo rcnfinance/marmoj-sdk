@@ -72,13 +72,13 @@ public class MarmoServiceImpl<C extends Contract> implements MarmoService<C> {
         }
         if (marmoCore == null) {
             marmoCore = MarmoCore.load(contractAddress, web3j, credentials, new DefaultGasProvider());
-            LOGGER.info(String.format("Contract is: %s", marmoCore.isValid()));
         }
 
+        RemoteCall<byte[]> remoteCall = marmoCore.encodeTransactionData(intent.getDependencies(),
+                    intent.getTo(), intent.getValue(), intent.getData(), intent.getMinGasLimit(),
+                    intent.getMaxGasPrice(), intent.getSalt());
 
-        RemoteCall<byte[]> remoteCall = marmoCore.encodeTransactionData(intent);
-        byte[] result = remoteCall.send();
-        return result;
+        return remoteCall.send();
     }
 
     /**
@@ -92,11 +92,9 @@ public class MarmoServiceImpl<C extends Contract> implements MarmoService<C> {
     }
 
     private static void configureLogging(OkHttpClient.Builder builder) {
-        if (LOGGER.isDebugEnabled()) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor(LOGGER::debug);
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(logging);
-        }
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor(LOGGER::debug);
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(logging);
     }
 
 }
