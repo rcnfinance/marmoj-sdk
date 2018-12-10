@@ -18,7 +18,7 @@ web3j {
 }
 
 ext {
-    web3jVersion = "3.6.0"
+    web3jVersion = "4.0.3"
     springBootVersion = "2.1.1.RELEASE"
     logbackVersion = "1.2.3"
     junitVersion = "4.12"

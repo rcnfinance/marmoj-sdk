@@ -2,14 +2,20 @@ package network.marmoj.builder;
 
 import network.marmoj.model.core.Intent;
 
-public final class IntentBuilder {
+import java.math.BigInteger;
+import java.util.List;
 
-    private String id;
+public final class IntentBuilder {
+    List<byte[]> dependencies;
+    private byte[] id;
     private String signature;
     private String from;
     private String to;
-    private String value;
-    private String callData;
+    private BigInteger value;
+    private byte[] data;
+    private BigInteger minGasLimit;
+    private BigInteger maxGasPrice;
+    private byte[] salt;
 
     private IntentBuilder() {
     }
@@ -18,13 +24,18 @@ public final class IntentBuilder {
         return new IntentBuilder();
     }
 
-    public IntentBuilder withId(String id) {
+    public IntentBuilder withId(byte[] id) {
         this.id = id;
         return this;
     }
 
     public IntentBuilder withSignature(String signature) {
         this.signature = signature;
+        return this;
+    }
+
+    public IntentBuilder withDependencies(List<byte[]> dependencies) {
+        this.dependencies = dependencies;
         return this;
     }
 
@@ -38,13 +49,28 @@ public final class IntentBuilder {
         return this;
     }
 
-    public IntentBuilder withValue(String value) {
+    public IntentBuilder withValue(BigInteger value) {
         this.value = value;
         return this;
     }
 
-    public IntentBuilder withCallData(String callData) {
-        this.callData = callData;
+    public IntentBuilder withData(byte[] data) {
+        this.data = data;
+        return this;
+    }
+
+    public IntentBuilder withMinGasLimit(BigInteger minGasLimit) {
+        this.minGasLimit = minGasLimit;
+        return this;
+    }
+
+    public IntentBuilder withMaxGasPrice(BigInteger maxGasPrice) {
+        this.maxGasPrice = maxGasPrice;
+        return this;
+    }
+
+    public IntentBuilder withSalt(byte[] salt) {
+        this.salt = salt;
         return this;
     }
 
@@ -52,10 +78,14 @@ public final class IntentBuilder {
         Intent intent = new Intent();
         intent.setId(id);
         intent.setSignature(signature);
+        intent.setDependencies(dependencies);
         intent.setFrom(from);
         intent.setTo(to);
         intent.setValue(value);
-        intent.setCallData(callData);
+        intent.setData(data);
+        intent.setMinGasLimit(minGasLimit);
+        intent.setMaxGasPrice(maxGasPrice);
+        intent.setSalt(salt);
         return intent;
     }
 }

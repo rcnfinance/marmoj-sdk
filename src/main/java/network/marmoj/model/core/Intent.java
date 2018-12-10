@@ -1,19 +1,26 @@
 package network.marmoj.model.core;
 
+import java.math.BigInteger;
+import java.util.List;
+
 public class Intent {
 
-    private String id;
+    private byte[] id;
     private String signature;
+    List<byte[]> dependencies;
     private String from;
     private String to;
-    private String value;
-    private String callData;
+    private BigInteger value;
+    private byte[] data;
+    private BigInteger minGasLimit;
+    private BigInteger maxGasPrice;
+    private byte[] salt;
 
-    public String getId() {
+    public byte[] getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(byte[] id) {
         this.id = id;
     }
 
@@ -23,6 +30,14 @@ public class Intent {
 
     public void setSignature(String signature) {
         this.signature = signature;
+    }
+
+    public List<byte[]> getDependencies() {
+        return dependencies;
+    }
+
+    public void setDependencies(List<byte[]> dependencies) {
+        this.dependencies = dependencies;
     }
 
     public String getFrom() {
@@ -41,19 +56,43 @@ public class Intent {
         this.to = to;
     }
 
-    public String getValue() {
+    public BigInteger getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(BigInteger value) {
         this.value = value;
     }
 
-    public String getCallData() {
-        return callData;
+    public byte[] getData() {
+        return data;
     }
 
-    public void setCallData(String callData) {
-        this.callData = callData;
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public BigInteger getMinGasLimit() {
+        return minGasLimit;
+    }
+
+    public void setMinGasLimit(BigInteger minGasLimit) {
+        this.minGasLimit = minGasLimit;
+    }
+
+    public BigInteger getMaxGasPrice() {
+        return maxGasPrice;
+    }
+
+    public void setMaxGasPrice(BigInteger maxGasPrice) {
+        this.maxGasPrice = maxGasPrice;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
+    public void setSalt(byte[] salt) {
+        this.salt = salt;
     }
 }
