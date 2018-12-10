@@ -26,11 +26,7 @@ ext {
 
 dependencies {
 
-    compile "org.springframework.boot:spring-boot-autoconfigure:$springBootVersion",
-            "org.springframework.boot:spring-boot-actuator:$springBootVersion",
-            "org.springframework.boot:spring-boot-actuator-autoconfigure:$springBootVersion",
-            "org.springframework.boot:spring-boot-configuration-processor:$springBootVersion",
-            "org.web3j:core:$web3jVersion"
+    compile "org.web3j:core:$web3jVersion"
 
     compile ("org.springframework.boot:spring-boot-starter:$springBootVersion") {
         exclude module: 'commons-logging'
