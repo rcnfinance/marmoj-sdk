@@ -11,21 +11,17 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.web3j.crypto.*;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.Sign;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.RemoteCall;
-import org.web3j.protocol.core.Request;
-import org.web3j.protocol.core.methods.response.EthSign;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.ipc.UnixIpcService;
 import org.web3j.protocol.ipc.WindowsIpcService;
 import org.web3j.tx.gas.DefaultGasProvider;
-import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
-import java.io.IOException;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +54,7 @@ public class MarmoServiceImpl implements MarmoService {
     }
 
     @Override
-    public Intent create(List<byte[]> dependencies, String to, BigInteger value, byte[] data, BigInteger minGasLimit,
+    public Intent create(List<byte[]> dependencies, String to, BigInteger value, String data, BigInteger minGasLimit,
                          BigInteger maxGasPrice, byte[] salt) {
 
         if (web3j == null || credentials == null ||  marmoCoreClient == null) {
@@ -69,16 +65,17 @@ public class MarmoServiceImpl implements MarmoService {
         if (dependencies == null) {
             dependencies = new ArrayList<>();
         }
-        if (data == null) {
-            data = Numeric.toBytesPadded(BigInteger.ZERO, 32);
+        byte[] calldata = Numeric.toBytesPadded(BigInteger.ZERO, 32);
+        if (data != null) {
+            calldata = Numeric.hexStringToByteArray(data);
         }
         if (salt == null) {
             salt = Numeric.toBytesPadded(BigInteger.ZERO, 32);
         }
 
         Intent intent = IntentBuilder.anIntent()
-                .withId(generateId(dependencies, to, value, data, minGasLimit, maxGasPrice, salt))
-                .withData(data)
+                .withId(generateId(dependencies, to, value, calldata, minGasLimit, maxGasPrice, salt))
+                .withData(calldata)
                 .withFrom(credentials.getAddress())
                 .withDependencies(dependencies)
                 .withTo(to)
