@@ -3,10 +3,9 @@ package network.marmoj.model.core;
 import java.math.BigInteger;
 import java.util.List;
 
-public class Intent {
+public class  Intent {
 
-    private byte[] id;
-    private String signature;
+    private String id;
     List<byte[]> dependencies;
     private String from;
     private String to;
@@ -16,20 +15,12 @@ public class Intent {
     private BigInteger maxGasPrice;
     private byte[] salt;
 
-    public byte[] getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(byte[] id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
     }
 
     public List<byte[]> getDependencies() {

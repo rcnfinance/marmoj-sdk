@@ -1,14 +1,14 @@
 package network.marmoj.builder;
 
 import network.marmoj.model.core.Intent;
+import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.List;
 
 public final class IntentBuilder {
     List<byte[]> dependencies;
-    private byte[] id;
-    private String signature;
+    private String id;
     private String from;
     private String to;
     private BigInteger value;
@@ -24,13 +24,8 @@ public final class IntentBuilder {
         return new IntentBuilder();
     }
 
-    public IntentBuilder withId(byte[] id) {
+    public IntentBuilder withId(String id) {
         this.id = id;
-        return this;
-    }
-
-    public IntentBuilder withSignature(String signature) {
-        this.signature = signature;
         return this;
     }
 
@@ -77,7 +72,6 @@ public final class IntentBuilder {
     public Intent build() {
         Intent intent = new Intent();
         intent.setId(id);
-        intent.setSignature(signature);
         intent.setDependencies(dependencies);
         intent.setFrom(from);
         intent.setTo(to);
