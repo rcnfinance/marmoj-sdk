@@ -31,24 +31,24 @@ public class MarmoCoreClientImpl extends Contract implements MarmoCoreClient {
     }
 
     @Override
-    public RemoteCall<byte[]> encodeTransactionData(List<byte[]> _dependencies, String _to, BigInteger _value,
-                                                    byte[] _data, BigInteger _minGasLimit, BigInteger _maxGasPrice,
-                                                    byte[] _salt) {
+    public RemoteCall<byte[]> encodeTransactionData(List<byte[]> dependencies, String to, BigInteger value,
+                                                    byte[] data, BigInteger minGasLimit, BigInteger maxGasPrice,
+                                                    byte[] salt) {
 
         DynamicArray<Bytes32> bytes32DynamicArray = DynamicArray.empty("bytes32[]");
-        if (!_dependencies.isEmpty()) {
-            bytes32DynamicArray = new DynamicArray<>(typeMap(_dependencies, Bytes32.class));
+        if (!dependencies.isEmpty()) {
+            bytes32DynamicArray = new DynamicArray<>(typeMap(dependencies, Bytes32.class));
         }
 
         final Function function = new Function(FUNC_ENCODETRANSACTIONDATA,
                 Arrays.asList(
                         bytes32DynamicArray,
-                        new Address(_to),
-                        new Uint256(_value),
-                        new DynamicBytes(_data),
-                        new Uint256(_minGasLimit),
-                        new Uint256(_maxGasPrice),
-                        new Bytes32(_salt)),
+                        new Address(to),
+                        new Uint256(value),
+                        new DynamicBytes(data),
+                        new Uint256(minGasLimit),
+                        new Uint256(maxGasPrice),
+                        new Bytes32(salt)),
                 Arrays.asList(new TypeReference<Bytes32>() {}));
         return executeRemoteCallSingleValueReturn(function, byte[].class);
     }

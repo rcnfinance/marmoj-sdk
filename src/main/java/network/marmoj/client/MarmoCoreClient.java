@@ -14,5 +14,6 @@ public interface MarmoCoreClient {
         return new MarmoCoreClientImpl(contractAddress, web3j, credentials, contractGasProvider);
     }
 
-    RemoteCall<byte[]> encodeTransactionData(List<byte[]> _dependencies, String _to, BigInteger _value, byte[] _data, BigInteger _minGasLimit, BigInteger _maxGasPrice, byte[] _salt);
+    RemoteCall<byte[]> encodeTransactionData(List<byte[]> dependencies, String to, BigInteger value, byte[] data,
+                                             BigInteger minGasLimit, BigInteger maxGasPrice, byte[] salt);
 }
