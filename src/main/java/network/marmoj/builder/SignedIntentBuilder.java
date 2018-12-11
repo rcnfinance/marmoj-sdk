@@ -2,9 +2,8 @@ package network.marmoj.builder;
 
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.SignedIntent;
-import org.web3j.crypto.Sign;
 
-import static org.web3j.crypto.Sign.*;
+import static org.web3j.crypto.Sign.SignatureData;
 
 public final class SignedIntentBuilder {
     private Intent intent;
