@@ -1,11 +1,13 @@
 package network.marmoj.model.core;
 
+import org.web3j.utils.Numeric;
+
 import java.math.BigInteger;
 import java.util.List;
 
 public class  Intent {
 
-    private String id;
+    private byte[] id;
     List<byte[]> dependencies;
     private String from;
     private String to;
@@ -16,10 +18,14 @@ public class  Intent {
     private byte[] salt;
 
     public String getId() {
+        return Numeric.toHexString(id);
+    }
+
+    public byte[] getRawId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(byte[] id) {
         this.id = id;
     }
 

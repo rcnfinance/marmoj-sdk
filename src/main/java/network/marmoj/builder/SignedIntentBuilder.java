@@ -2,10 +2,13 @@ package network.marmoj.builder;
 
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.SignedIntent;
+import org.web3j.crypto.Sign;
+
+import static org.web3j.crypto.Sign.*;
 
 public final class SignedIntentBuilder {
     private Intent intent;
-    private String signature;
+    private SignatureData signature;
 
     private SignedIntentBuilder() {
     }
@@ -19,7 +22,7 @@ public final class SignedIntentBuilder {
         return this;
     }
 
-    public SignedIntentBuilder withSignature(String signature) {
+    public SignedIntentBuilder withSignature(SignatureData signature) {
         this.signature = signature;
         return this;
     }

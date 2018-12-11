@@ -2,6 +2,7 @@ package network.marmoj.service;
 
 import network.marmoj.Application;
 import network.marmoj.builder.IntentBuilder;
+import network.marmoj.builder.SignedIntentBuilder;
 import network.marmoj.client.MarmoCoreClient;
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.SignedIntent;
@@ -10,16 +11,21 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.web3j.crypto.Credentials;
+import org.web3j.crypto.*;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jService;
 import org.web3j.protocol.core.RemoteCall;
+import org.web3j.protocol.core.Request;
+import org.web3j.protocol.core.methods.response.EthSign;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.protocol.ipc.UnixIpcService;
 import org.web3j.protocol.ipc.WindowsIpcService;
 import org.web3j.tx.gas.DefaultGasProvider;
+import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,21 +93,24 @@ public class MarmoServiceImpl implements MarmoService {
 
     @Override
     public SignedIntent sign(Intent intent) {
-        return null;
+        SignedIntentBuilder signedIntentBuilder = SignedIntentBuilder.aSignedIntent()
+                .withIntent(intent)
+                .withSignature(Sign.signMessage(intent.getRawId(), credentials.getEcKeyPair()));
+        return signedIntentBuilder.build();
     }
 
     /**
      * Private Metods
      */
 
-    private String generateId(List<byte[]> dependencies, String to, BigInteger value, byte[] data, BigInteger minGasLimit, BigInteger maxGasPrice, byte[] salt)  {
+    private byte[] generateId(List<byte[]> dependencies, String to, BigInteger value, byte[] data, BigInteger minGasLimit, BigInteger maxGasPrice, byte[] salt)  {
         RemoteCall<byte[]> remoteCall = marmoCoreClient.encodeTransactionData(dependencies, to, value, data, minGasLimit, maxGasPrice, salt);
         try {
-            return Numeric.toHexString(remoteCall.send());
+            return remoteCall.send();
         } catch (Exception e) {
             // TODO: UP RUNTIME EXCEPTION
-            return null;
         }
+        return null;
     }
 
     private Web3jService buildService(String nodeAddress) {

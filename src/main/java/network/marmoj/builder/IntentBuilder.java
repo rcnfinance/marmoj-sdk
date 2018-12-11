@@ -8,7 +8,7 @@ import java.util.List;
 
 public final class IntentBuilder {
     List<byte[]> dependencies;
-    private String id;
+    private byte[] id;
     private String from;
     private String to;
     private BigInteger value;
@@ -24,7 +24,7 @@ public final class IntentBuilder {
         return new IntentBuilder();
     }
 
-    public IntentBuilder withId(String id) {
+    public IntentBuilder withId(byte[] id) {
         this.id = id;
         return this;
     }
