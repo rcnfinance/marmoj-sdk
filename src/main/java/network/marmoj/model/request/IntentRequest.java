@@ -2,8 +2,6 @@ package network.marmoj.model.request;
 
 import java.util.List;
 
-import static org.web3j.crypto.Sign.SignatureData;
-
 public class IntentRequest {
 
     private String id;

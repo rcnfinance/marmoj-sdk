@@ -1,27 +1,38 @@
 package network.marmoj.builder;
 
+import jdk.internal.jline.internal.Nullable;
 import network.marmoj.model.core.Intent;
-import network.marmoj.model.core.IntentTx;
+import network.marmoj.model.core.IntentAction;
+import org.web3j.utils.Numeric;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class IntentBuilder {
-    List<byte[]> dependencies;
+
+    public static final int LENGTH = 32;
+
+    private List<byte[]> dependencies = new ArrayList<>();
     private byte[] id;
     private String signer;
     private String wallet;
-    private IntentTx intentTx;
-    private byte[] salt;
+    @Nullable
+    private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, LENGTH);
+    private IntentTxBuilder intentTxBuilder = IntentTxBuilder.anIntentTx();
 
-    private IntentBuilder() {
-    }
+    private IntentBuilder() { }
 
     public static IntentBuilder anIntent() {
-        return new IntentBuilder();
+        IntentBuilder intentBuilder = new IntentBuilder();
+        intentBuilder.id = "123".getBytes();
+        return intentBuilder;
     }
 
-    public IntentBuilder withId(byte[] id) {
-        this.id = id;
+    public IntentBuilder withIntentAction(IntentAction intentAction) {
+        this.intentTxBuilder.withTo(intentAction.getTo());
+        this.intentTxBuilder.withValue(intentAction.getValue());
+        this.intentTxBuilder.withData(Numeric.hexStringToByteArray(intentAction.getData()));
         return this;
     }
 
@@ -30,18 +41,23 @@ public final class IntentBuilder {
         return this;
     }
 
-    public IntentBuilder withDependencies(List<byte[]> dependencies) {
-        this.dependencies = dependencies;
-        return this;
-    }
-
     public IntentBuilder withWallet(String wallet) {
         this.wallet = wallet;
         return this;
     }
 
-    public IntentBuilder withIntentTx(IntentTx intentTx) {
-        this.intentTx = intentTx;
+    public IntentBuilder withDependencies(List<byte[]> dependencies) {
+        this.dependencies.addAll(dependencies);
+        return this;
+    }
+
+    public IntentBuilder withMinGasLimit(BigInteger minGasLimit) {
+        this.intentTxBuilder.withMinGasLimit(minGasLimit);
+        return this;
+    }
+
+    public IntentBuilder withMaxGasPrice(BigInteger maxGasPrice) {
+        this.intentTxBuilder.withMaxGasPrice(maxGasPrice);
         return this;
     }
 
@@ -51,12 +67,16 @@ public final class IntentBuilder {
     }
 
     public Intent build() {
+
+
+        //FIXME VALIDACIONES DE LOS OPCIONES Y NO OPCIONES
+
         Intent intent = new Intent();
         intent.setId(id);
         intent.setSigner(signer);
         intent.setDependencies(dependencies);
         intent.setWallet(wallet);
-        intent.setTx(intentTx);
+        intent.setTx(intentTxBuilder.build());
         intent.setSalt(salt);
         return intent;
     }
