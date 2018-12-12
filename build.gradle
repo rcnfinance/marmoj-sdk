@@ -25,16 +25,13 @@ ext {
 }
 
 dependencies {
-
     compile "org.web3j:core:$web3jVersion"
-
     compile ("org.springframework.boot:spring-boot-starter:$springBootVersion") {
         exclude module: 'commons-logging'
     }
-
+    compile group: 'org.asynchttpclient', name: 'async-http-client', version: '2.6.0'
     compile "ch.qos.logback:logback-core:$logbackVersion",
             "ch.qos.logback:logback-classic:$logbackVersion"
-
     testCompile "junit:junit:$junitVersion"
 }
 
