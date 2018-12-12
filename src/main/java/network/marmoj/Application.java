@@ -39,7 +39,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        marmoService.setup("https://ropsten.node.rcn.loans:8545", "0xe038d8fdfab5c8a0c9178dbe9e730b3ab1100c52", "512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
+        marmoService.setup("https://ropsten.node.rcn.loans:8545", "0xDc3914BEd4Fc2E387d0388B2E3868e671c143944", "512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
 
         ERC20Impl erc20 = new ERC20Impl();
         String transferDataCall = erc20.transfer(
@@ -49,11 +49,12 @@ public class Application implements CommandLineRunner {
 
         Intent intent = marmoService.create(
                 new ArrayList<>(),
-                "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB",
-                BigInteger.ONE,
-                transferDataCall,
+                "0x2f45b6fb2f28a73f110400386da31044b2e953d4",
+                "0x9d7713f5048c270d7c1dbe65f44644f4ea47f774",
                 BigInteger.ZERO,
-                BigInteger.valueOf(999999999),
+                transferDataCall,
+                BigInteger.valueOf(300000),
+                BigInteger.valueOf(9999999999L),
                 null
                 );
 

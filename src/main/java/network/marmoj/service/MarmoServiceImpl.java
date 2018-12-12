@@ -36,6 +36,7 @@ public class MarmoServiceImpl implements MarmoService {
     private Web3j web3j;
     private Credentials credentials;
     private MarmoCoreClient marmoCoreClient;
+    private String contractAddres;
 
     @Override
     public boolean setup(String nodeAddress, String contractAddress, String privateKey) {
@@ -50,13 +51,14 @@ public class MarmoServiceImpl implements MarmoService {
         }
         if (marmoCoreClient == null) {
             marmoCoreClient = MarmoCoreClient.load(contractAddress, web3j, credentials, new DefaultGasProvider());
+            contractAddres = contractAddress;
             LOGGER.info(String.format("Building contract for: %s", contractAddress));
         }
         return true;
     }
 
     @Override
-    public Intent create(List<byte[]> dependencies, String to, BigInteger value, String data, BigInteger minGasLimit,
+    public Intent create(List<byte[]> dependencies, String to, String signer, BigInteger value, String data, BigInteger minGasLimit,
                          BigInteger maxGasPrice, byte[] salt) {
 
         if (web3j == null || credentials == null ||  marmoCoreClient == null) {
@@ -85,7 +87,8 @@ public class MarmoServiceImpl implements MarmoService {
 
         Intent intent = IntentBuilder.anIntent()
                 .withId(generateId(dependencies, to, value, calldata, minGasLimit, maxGasPrice, salt))
-                .withWallet(credentials.getAddress())
+                .withSigner(credentials.getAddress())
+                .withWallet(contractAddres)
                 .withDependencies(dependencies)
                 .withIntentTx(intentTx)
                 .withSalt(salt)
@@ -98,7 +101,7 @@ public class MarmoServiceImpl implements MarmoService {
     public SignedIntent sign(Intent intent) {
         SignedIntentBuilder signedIntentBuilder = SignedIntentBuilder.aSignedIntent()
                 .withIntent(intent)
-                .withSignature(Sign.signMessage(intent.getId(), credentials.getEcKeyPair()));
+                .withSignature(Sign.signMessage(intent.getId(), credentials.getEcKeyPair(), false));
         return signedIntentBuilder.build();
     }
 

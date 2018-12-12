@@ -2,6 +2,8 @@ package network.marmoj.model.request;
 
 import java.util.List;
 
+import static org.web3j.crypto.Sign.SignatureData;
+
 public class IntentRequest {
 
     private String id;
@@ -9,7 +11,8 @@ public class IntentRequest {
     private String wallet;
     private IntentTxRequest tx;
     private String salt;
-    private String signature;
+    private String signer;
+    private SignatureDataRequest signature;
 
     public String getId() {
         return id;
@@ -51,11 +54,19 @@ public class IntentRequest {
         this.salt = salt;
     }
 
-    public String getSignature() {
+    public SignatureDataRequest getSignature() {
         return signature;
     }
 
-    public void setSignature(String signature) {
+    public void setSignature(SignatureDataRequest signature) {
         this.signature = signature;
+    }
+
+    public String getSigner() {
+        return signer;
+    }
+
+    public void setSigner(String signer) {
+        this.signer = signer;
     }
 }

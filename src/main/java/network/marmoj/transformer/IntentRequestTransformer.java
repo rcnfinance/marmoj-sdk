@@ -3,8 +3,11 @@ package network.marmoj.transformer;
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.SignedIntent;
 import network.marmoj.model.request.IntentRequest;
+import network.marmoj.model.request.SignatureDataRequest;
 import org.web3j.utils.Numeric;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,18 +30,20 @@ public class IntentRequestTransformer {
         request.setDependencies(dependencies);
         request.setSalt(Numeric.toHexString(intent.getSalt()));
         request.setWallet(intent.getWallet());
-
-        SignatureData signature = signedIntent.getSignature();
-
-        String r = Numeric.toHexString(signature.getR());
-        String s = Numeric.toHexString(signature.getS());
-        String v = String.valueOf(Integer.toString(signature.getV()));
-
-        request.setSignature(String.format("%s%s%s", r, s, v));
+        request.setSigner(intent.getSigner());
+        request.setSignature(transform(signedIntent.getSignature()));
         request.setId(Numeric.toHexString(intent.getId()));
         request.setTx(IntentTxRequestTransformer.transform(intent.getTx()));
         return request;
     };
+
+    private static SignatureDataRequest transform(SignatureData signature) {
+        SignatureDataRequest request = new SignatureDataRequest();
+        request.setR(Numeric.toHexString(signature.getR()));
+        request.setS(Numeric.toHexString(signature.getS()));
+        request.setV(Numeric.toHexString(new byte[]{signature.getV()}));
+        return request;
+    }
 
     public static IntentRequest transform(SignedIntent signedIntent) {
         return function.apply(signedIntent);

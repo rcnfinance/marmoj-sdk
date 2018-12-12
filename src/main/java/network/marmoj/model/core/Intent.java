@@ -10,6 +10,7 @@ public class  Intent {
     private String wallet;
     private IntentTx tx;
     private byte[] salt;
+    private String signer;
 
     public byte[] getId() {
         return id;
@@ -51,6 +52,14 @@ public class  Intent {
         this.salt = salt;
     }
 
+    public void setSigner(String signer) {
+        this.signer = signer;
+    }
+
+    public String getSigner() {
+        return signer;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Intent{");
@@ -59,7 +68,9 @@ public class  Intent {
         sb.append(", wallet='").append(wallet).append('\'');
         sb.append(", tx=").append(tx);
         sb.append(", salt=").append(Arrays.toString(salt));
+        sb.append(", signer=").append(signer);
         sb.append('}');
         return sb.toString();
     }
+
 }

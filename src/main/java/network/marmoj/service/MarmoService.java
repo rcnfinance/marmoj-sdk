@@ -10,7 +10,7 @@ public interface MarmoService {
 
     boolean setup(String nodeAddress, String contractAddress, String privateKey);
 
-    Intent create(List<byte[]> dependencies, String to, BigInteger value, String data, BigInteger minGasLimit, BigInteger maxGasPrice, byte[] salt);
+    Intent create(List<byte[]> dependencies, String to, String signer, BigInteger value, String data, BigInteger minGasLimit, BigInteger maxGasPrice, byte[] salt);
 
     SignedIntent sign(Intent intent);
 

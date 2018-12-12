@@ -8,6 +8,7 @@ import java.util.List;
 public final class IntentBuilder {
     List<byte[]> dependencies;
     private byte[] id;
+    private String signer;
     private String wallet;
     private IntentTx intentTx;
     private byte[] salt;
@@ -21,6 +22,11 @@ public final class IntentBuilder {
 
     public IntentBuilder withId(byte[] id) {
         this.id = id;
+        return this;
+    }
+
+    public IntentBuilder withSigner(String signer) {
+        this.signer = signer;
         return this;
     }
 
@@ -47,10 +53,12 @@ public final class IntentBuilder {
     public Intent build() {
         Intent intent = new Intent();
         intent.setId(id);
+        intent.setSigner(signer);
         intent.setDependencies(dependencies);
         intent.setWallet(wallet);
         intent.setTx(intentTx);
         intent.setSalt(salt);
         return intent;
     }
+
 }
