@@ -1,8 +1,6 @@
 package network.marmoj.model.core;
 
-import org.web3j.crypto.Sign;
-
-import static org.web3j.crypto.Sign.*;
+import static org.web3j.crypto.Sign.SignatureData;
 
 public class SignedIntent {
 
@@ -23,5 +21,14 @@ public class SignedIntent {
 
     public void setSignature(SignatureData signature) {
         this.signature = signature;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("SignedIntent{");
+        sb.append("intent=").append(intent);
+        sb.append(", signature=").append(signature);
+        sb.append('}');
+        return sb.toString();
     }
 }
