@@ -1,8 +1,10 @@
 package network.marmoj.service;
 
 import network.marmoj.client.IntentClient;
-import network.marmoj.model.core.Intent;
+import network.marmoj.model.core.SignedIntent;
+import network.marmoj.model.request.IntentRequest;
 import network.marmoj.model.response.IntentResponse;
+import network.marmoj.transformer.IntentRequestTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,9 @@ public class IntentServiceImpl implements IntentService {
     private IntentClient intentClient;
 
     @Override
-    public IntentResponse send(Intent intent) {
-        return intentClient.post(intent);
+    public IntentResponse send(SignedIntent intent) {
+        IntentRequest request = IntentRequestTransformer.transform(intent);
+        return intentClient.post(request);
     }
 
 }
