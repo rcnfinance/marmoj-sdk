@@ -49,7 +49,7 @@ public final class IntentBuilder {
         intent.setId(id);
         intent.setDependencies(dependencies);
         intent.setWallet(wallet);
-        intent.setIntentTx(intentTx);
+        intent.setTx(intentTx);
         intent.setSalt(salt);
         return intent;
     }

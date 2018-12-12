@@ -8,7 +8,7 @@ public class  Intent {
     private byte[] id;
     List<byte[]> dependencies;
     private String wallet;
-    private IntentTx intentTx;
+    private IntentTx tx;
     private byte[] salt;
 
     public byte[] getId() {
@@ -35,12 +35,12 @@ public class  Intent {
         this.wallet = wallet;
     }
 
-    public IntentTx getIntentTx() {
-        return intentTx;
+    public IntentTx getTx() {
+        return tx;
     }
 
-    public void setIntentTx(IntentTx intentTx) {
-        this.intentTx = intentTx;
+    public void setTx(IntentTx tx) {
+        this.tx = tx;
     }
 
     public byte[] getSalt() {
@@ -57,7 +57,7 @@ public class  Intent {
         sb.append("id=").append(Arrays.toString(id));
         sb.append(", dependencies=").append(dependencies);
         sb.append(", wallet='").append(wallet).append('\'');
-        sb.append(", intentTx=").append(intentTx);
+        sb.append(", tx=").append(tx);
         sb.append(", salt=").append(Arrays.toString(salt));
         sb.append('}');
         return sb.toString();
