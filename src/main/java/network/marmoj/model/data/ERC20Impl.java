@@ -66,5 +66,5 @@ public class ERC20Impl implements ERC20 {
                 Arrays.asList(new TypeReference<Bool>() {}));
         return FunctionEncoder.encode(function);
     }
-    
+
 }

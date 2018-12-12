@@ -1,20 +1,15 @@
 package network.marmoj.builder;
 
 import network.marmoj.model.core.Intent;
-import org.web3j.utils.Numeric;
+import network.marmoj.model.core.IntentTx;
 
-import java.math.BigInteger;
 import java.util.List;
 
 public final class IntentBuilder {
     List<byte[]> dependencies;
     private byte[] id;
-    private String from;
-    private String to;
-    private BigInteger value;
-    private byte[] data;
-    private BigInteger minGasLimit;
-    private BigInteger maxGasPrice;
+    private String wallet;
+    private IntentTx intentTx;
     private byte[] salt;
 
     private IntentBuilder() {
@@ -34,33 +29,13 @@ public final class IntentBuilder {
         return this;
     }
 
-    public IntentBuilder withFrom(String from) {
-        this.from = from;
+    public IntentBuilder withWallet(String wallet) {
+        this.wallet = wallet;
         return this;
     }
 
-    public IntentBuilder withTo(String to) {
-        this.to = to;
-        return this;
-    }
-
-    public IntentBuilder withValue(BigInteger value) {
-        this.value = value;
-        return this;
-    }
-
-    public IntentBuilder withData(byte[] data) {
-        this.data = data;
-        return this;
-    }
-
-    public IntentBuilder withMinGasLimit(BigInteger minGasLimit) {
-        this.minGasLimit = minGasLimit;
-        return this;
-    }
-
-    public IntentBuilder withMaxGasPrice(BigInteger maxGasPrice) {
-        this.maxGasPrice = maxGasPrice;
+    public IntentBuilder withIntentTx(IntentTx intentTx) {
+        this.intentTx = intentTx;
         return this;
     }
 
@@ -73,12 +48,8 @@ public final class IntentBuilder {
         Intent intent = new Intent();
         intent.setId(id);
         intent.setDependencies(dependencies);
-        intent.setFrom(from);
-        intent.setTo(to);
-        intent.setValue(value);
-        intent.setData(data);
-        intent.setMinGasLimit(minGasLimit);
-        intent.setMaxGasPrice(maxGasPrice);
+        intent.setWallet(wallet);
+        intent.setIntentTx(intentTx);
         intent.setSalt(salt);
         return intent;
     }

@@ -2,9 +2,11 @@ package network.marmoj.service;
 
 import network.marmoj.Application;
 import network.marmoj.builder.IntentBuilder;
+import network.marmoj.builder.IntentTxBuilder;
 import network.marmoj.builder.SignedIntentBuilder;
 import network.marmoj.client.MarmoCoreClient;
 import network.marmoj.model.core.Intent;
+import network.marmoj.model.core.IntentTx;
 import network.marmoj.model.core.SignedIntent;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -73,16 +75,20 @@ public class MarmoServiceImpl implements MarmoService {
             salt = Numeric.toBytesPadded(BigInteger.ZERO, 32);
         }
 
-        Intent intent = IntentBuilder.anIntent()
-                .withId(generateId(dependencies, to, value, calldata, minGasLimit, maxGasPrice, salt))
+        IntentTx intentTx = IntentTxBuilder.anIntentTx()
                 .withData(calldata)
-                .withFrom(credentials.getAddress())
-                .withDependencies(dependencies)
-                .withTo(to)
                 .withMaxGasPrice(maxGasPrice)
                 .withMinGasLimit(minGasLimit)
+                .withTo(to)
+                .withValue(value)
+                .build();
+
+        Intent intent = IntentBuilder.anIntent()
+                .withId(generateId(dependencies, to, value, calldata, minGasLimit, maxGasPrice, salt))
+                .withWallet(credentials.getAddress())
+                .withDependencies(dependencies)
+                .withIntentTx(intentTx)
                 .withSalt(salt)
-                .withValue(BigInteger.ONE)
                 .build();
 
         return intent;
@@ -92,7 +98,7 @@ public class MarmoServiceImpl implements MarmoService {
     public SignedIntent sign(Intent intent) {
         SignedIntentBuilder signedIntentBuilder = SignedIntentBuilder.aSignedIntent()
                 .withIntent(intent)
-                .withSignature(Sign.signMessage(intent.getRawId(), credentials.getEcKeyPair()));
+                .withSignature(Sign.signMessage(intent.getId(), credentials.getEcKeyPair()));
         return signedIntentBuilder.build();
     }
 
