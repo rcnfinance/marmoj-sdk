@@ -1,6 +1,5 @@
 package network.marmoj.builder;
 
-import jdk.internal.jline.internal.Nullable;
 import network.marmoj.model.core.IntentTx;
 
 import java.math.BigInteger;
@@ -9,9 +8,7 @@ public final class IntentTxBuilder {
     private String to;
     private BigInteger value;
     private byte[] data;
-    @Nullable
     private BigInteger minGasLimit = BigInteger.valueOf(0);
-    @Nullable
     private BigInteger maxGasPrice = BigInteger.valueOf(9999999999L);
 
     private IntentTxBuilder() { }
