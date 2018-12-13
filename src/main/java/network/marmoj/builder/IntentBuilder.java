@@ -14,13 +14,15 @@ import static org.bouncycastle.jcajce.provider.digest.Keccak.*;
 
 public final class IntentBuilder {
 
-    public static final int LENGTH = 32;
-    public static final int SIZE = 64;
+    public static final int SIZE_32 = 32;
+    public static final int SIZE_64 = 64;
+    public static final int SIZE_PREFIX = 2;
+    public static final String PREFIX = "0x";
 
     private List<byte[]> dependencies = new ArrayList<>();
     private String signer;
     private String wallet;
-    private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, LENGTH);
+    private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
     private IntentTxBuilder intentTxBuilder = IntentTxBuilder.anIntentTx();
 
     private IntentBuilder() { }
@@ -85,13 +87,13 @@ public final class IntentBuilder {
     private byte[] generateId(IntentTx intentTx) {
 
         String wallet = this.wallet;
-        String dependencies = keccak256(sanitizeDependencies(this.dependencies));
-        String to = intentTx.getTo();
-        String value = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getValue(), SIZE);
-        String data = keccak256(intentTx.getData());
-        String minGasLimit = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getMinGasLimit(), SIZE);
-        String maxGasLimit = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getMaxGasPrice(), SIZE);
-        String salt = Numeric.toHexString(this.salt);
+        String dependencies = sanitizePrefix(keccak256(sanitizeDependencies(this.dependencies)));
+        String to = sanitizePrefix(intentTx.getTo());
+        String value = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getValue(), SIZE_64);
+        String data = sanitizePrefix(keccak256(intentTx.getData()));
+        String minGasLimit = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getMinGasLimit(), SIZE_64);
+        String maxGasLimit = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getMaxGasPrice(), SIZE_64);
+        String salt = sanitizePrefix(Numeric.toHexString(this.salt));
 
         StringBuilder encodePackedBuilder = new StringBuilder()
                 .append(wallet)
@@ -107,12 +109,20 @@ public final class IntentBuilder {
         return Numeric.hexStringToByteArray(encodePacked);
     }
 
+    private String sanitizePrefix(String data) {
+        return data.substring(SIZE_PREFIX);
+    }
+
     private String sanitizeDependencies(List<byte[]> dependencies) {
         StringBuilder dependenciesBuiler = new StringBuilder();
         for (byte[] dependency: dependencies) {
-            dependenciesBuiler.append(Numeric.toHexString(dependency));
+            dependenciesBuiler.append(sanitizePrefix(Numeric.toHexString(dependency)));
         }
-        return dependenciesBuiler.toString();
+        String result = dependenciesBuiler.toString();
+        if (!result.isEmpty()) {
+            return PREFIX + result;
+        }
+        return result;
     }
 
     private String keccak256(String data) {
