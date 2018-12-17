@@ -1,12 +1,10 @@
 package network.marmoj;
 
 import network.marmoj.builder.IntentBuilder;
-import network.marmoj.client.IRelayClient;
-import network.marmoj.client.RelayClient;
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.IntentAction;
 import network.marmoj.model.core.SignedIntent;
-import network.marmoj.model.data.ERC20Impl;
+import network.marmoj.model.data.ERC20;
 import network.marmoj.utils.MarmoUtils;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
@@ -18,7 +16,7 @@ public class Application {
 
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4";
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
-        ERC20Impl erc20 = new ERC20Impl(tokenContractAddress);
+        ERC20 erc20 = new ERC20(tokenContractAddress);
 
         int value = 1;
         IntentAction intentAction = erc20.transfer(
@@ -36,8 +34,8 @@ public class Application {
 
         SignedIntent sign = MarmoUtils.sign(intent, credentials);
 
-        IRelayClient client = new RelayClient("http://.../relay");
-        client.send(sign);
+        //IRelayClient client = new RelayClient("http://.../relay");
+        //client.send(sign);
 
     }
 

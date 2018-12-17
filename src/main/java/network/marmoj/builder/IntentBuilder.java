@@ -1,5 +1,6 @@
 package network.marmoj.builder;
 
+import network.marmoj.exception.ValidationException;
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.IntentAction;
 import network.marmoj.utils.MarmoUtils;
@@ -71,11 +72,22 @@ public final class IntentBuilder {
         return this;
     }
 
-
-
     public Intent build() {
-
-        //FIXME VALIDACIONES DE LOS OPCIONES Y NO OPCIONES
+        if (signer == null) {
+            new ValidationException("signer");
+        }
+        if (wallet == null) {
+            new ValidationException("wallet");
+        }
+        if (to == null) {
+            new ValidationException("to");
+        }
+        if (value == null) {
+            new ValidationException("value");
+        }
+        if (data == null) {
+            new ValidationException("data");
+        }
 
         Intent intent = new Intent();
         intent.setId(generateId());
