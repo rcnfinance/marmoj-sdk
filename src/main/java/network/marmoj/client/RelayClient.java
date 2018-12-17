@@ -30,7 +30,7 @@ public class RelayClient implements IRelayClient {
             ObjectMapper mapper = new ObjectMapper();
             IntentRequest request = IntentRequestTransformer.transform(intent);
             String body = mapper.writeValueAsString(request);
-            LOGGER.info(body);
+            LOGGER.info("[Post Body -> ]", body);
 
             asyncHttpClient
                     .preparePost(path)
