@@ -2,13 +2,10 @@ package network.marmoj.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import network.marmoj.Application;
-import network.marmoj.model.core.SignedIntent;
 import network.marmoj.model.request.IntentRequest;
 import network.marmoj.model.response.IntentResponse;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Response;
-import org.asynchttpclient.util.HttpConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,6 +17,7 @@ import static org.asynchttpclient.Dsl.asyncHttpClient;
 @Component
 public class IntentClientImpl implements IntentClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(IntentClientImpl.class);
+    public static final String PATH = "http://10.148.108.93:8081/relay/";
 
     @Override
     public IntentResponse post(IntentRequest intent) {
@@ -31,7 +29,7 @@ public class IntentClientImpl implements IntentClient {
             LOGGER.info(body);
 
             asyncHttpClient
-                    .preparePost("http://10.148.108.93:8081/relay/")
+                    .preparePost(PATH)
                     .setBody(body)
                     .execute()
                     .toCompletableFuture()

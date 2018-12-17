@@ -2,15 +2,12 @@ package network.marmoj.builder;
 
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.IntentAction;
-import network.marmoj.model.core.IntentTx;
+import network.marmoj.utils.MarmoUtils;
 import org.web3j.utils.Numeric;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.bouncycastle.jcajce.provider.digest.Keccak.*;
 
 public final class IntentBuilder {
 
@@ -23,7 +20,13 @@ public final class IntentBuilder {
     private String signer;
     private String wallet;
     private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
-    private IntentTxBuilder intentTxBuilder = IntentTxBuilder.anIntentTx();
+
+    /* For transactions */
+    private String to;
+    private BigInteger value;
+    private byte[] data;
+    private BigInteger minGasLimit = BigInteger.valueOf(0);
+    private BigInteger maxGasPrice = BigInteger.valueOf(9999999999L);
 
     private IntentBuilder() { }
 
@@ -33,9 +36,9 @@ public final class IntentBuilder {
     }
 
     public IntentBuilder withIntentAction(IntentAction intentAction) {
-        this.intentTxBuilder.withTo(intentAction.getTo());
-        this.intentTxBuilder.withValue(intentAction.getValue());
-        this.intentTxBuilder.withData(Numeric.hexStringToByteArray(intentAction.getData()));
+        this.to = intentAction.getTo();
+        this.value = intentAction.getValue();
+        this.data = Numeric.hexStringToByteArray(intentAction.getData());
         return this;
     }
 
@@ -55,12 +58,12 @@ public final class IntentBuilder {
     }
 
     public IntentBuilder withMinGasLimit(BigInteger minGasLimit) {
-        this.intentTxBuilder.withMinGasLimit(minGasLimit);
+        this.minGasLimit = minGasLimit;
         return this;
     }
 
     public IntentBuilder withMaxGasPrice(BigInteger maxGasPrice) {
-        this.intentTxBuilder.withMaxGasPrice(maxGasPrice);
+        this.maxGasPrice = maxGasPrice;
         return this;
     }
 
@@ -69,30 +72,35 @@ public final class IntentBuilder {
         return this;
     }
 
+
+
     public Intent build() {
 
         //FIXME VALIDACIONES DE LOS OPCIONES Y NO OPCIONES
-        IntentTx intentTx = intentTxBuilder.build();
 
         Intent intent = new Intent();
-        intent.setId(generateId(intentTx));
+        intent.setId(generateId());
         intent.setSigner(signer);
         intent.setDependencies(dependencies);
         intent.setWallet(wallet);
-        intent.setTx(intentTx);
         intent.setSalt(salt);
+        intent.setTo(to);
+        intent.setValue(value);
+        intent.setData(data);
+        intent.setMinGasLimit(minGasLimit);
+        intent.setMaxGasPrice(maxGasPrice);
         return intent;
     }
 
-    private byte[] generateId(IntentTx intentTx) {
+    private byte[] generateId() {
 
         String wallet = this.wallet;
-        String dependencies = sanitizePrefix(keccak256(sanitizeDependencies(this.dependencies)));
-        String to = sanitizePrefix(intentTx.getTo());
-        String value = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getValue(), SIZE_64);
-        String data = sanitizePrefix(keccak256(intentTx.getData()));
-        String minGasLimit = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getMinGasLimit(), SIZE_64);
-        String maxGasLimit = Numeric.toHexStringNoPrefixZeroPadded(intentTx.getMaxGasPrice(), SIZE_64);
+        String dependencies = sanitizePrefix(MarmoUtils.keccak256(sanitizeDependencies(this.dependencies)));
+        String to = sanitizePrefix(this.to);
+        String value = Numeric.toHexStringNoPrefixZeroPadded(this.value, SIZE_64);
+        String data = sanitizePrefix(MarmoUtils.keccak256(this.data));
+        String minGasLimit = Numeric.toHexStringNoPrefixZeroPadded(this.minGasLimit, SIZE_64);
+        String maxGasLimit = Numeric.toHexStringNoPrefixZeroPadded(this.maxGasPrice, SIZE_64);
         String salt = sanitizePrefix(Numeric.toHexString(this.salt));
 
         StringBuilder encodePackedBuilder = new StringBuilder()
@@ -105,7 +113,7 @@ public final class IntentBuilder {
                 .append(maxGasLimit)
                 .append(salt);
 
-        String encodePacked = keccak256(encodePackedBuilder.toString());
+        String encodePacked = MarmoUtils.keccak256(encodePackedBuilder.toString());
         return Numeric.hexStringToByteArray(encodePacked);
     }
 
@@ -123,16 +131,6 @@ public final class IntentBuilder {
             return PREFIX + result;
         }
         return result;
-    }
-
-    private String keccak256(String data) {
-        return keccak256(Numeric.hexStringToByteArray(data));
-    }
-
-    private String keccak256(byte[] data) {
-        DigestKeccak kecc = new Digest256();
-        kecc.update(data, BigDecimal.ZERO.intValue(), data.length);
-        return Numeric.toHexString(kecc.digest());
     }
 
 }

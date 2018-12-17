@@ -1,16 +1,22 @@
 package network.marmoj.model.core;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
-public class  Intent {
+public class Intent {
 
     private byte[] id;
     List<byte[]> dependencies;
     private String wallet;
-    private IntentTx tx;
     private byte[] salt;
     private String signer;
+    /* For Transactions */
+    private String to;
+    private BigInteger value;
+    private byte[] data;
+    private BigInteger minGasLimit;
+    private BigInteger maxGasPrice;
 
     public byte[] getId() {
         return id;
@@ -36,14 +42,6 @@ public class  Intent {
         this.wallet = wallet;
     }
 
-    public IntentTx getTx() {
-        return tx;
-    }
-
-    public void setTx(IntentTx tx) {
-        this.tx = tx;
-    }
-
     public byte[] getSalt() {
         return salt;
     }
@@ -52,12 +50,52 @@ public class  Intent {
         this.salt = salt;
     }
 
+    public String getSigner() {
+        return signer;
+    }
+
     public void setSigner(String signer) {
         this.signer = signer;
     }
 
-    public String getSigner() {
-        return signer;
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public BigInteger getValue() {
+        return value;
+    }
+
+    public void setValue(BigInteger value) {
+        this.value = value;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+    public BigInteger getMinGasLimit() {
+        return minGasLimit;
+    }
+
+    public void setMinGasLimit(BigInteger minGasLimit) {
+        this.minGasLimit = minGasLimit;
+    }
+
+    public BigInteger getMaxGasPrice() {
+        return maxGasPrice;
+    }
+
+    public void setMaxGasPrice(BigInteger maxGasPrice) {
+        this.maxGasPrice = maxGasPrice;
     }
 
     @Override
@@ -66,12 +104,14 @@ public class  Intent {
         sb.append("id=").append(Arrays.toString(id));
         sb.append(", dependencies=").append(dependencies);
         sb.append(", wallet='").append(wallet).append('\'');
-        sb.append(", tx=").append(tx);
         sb.append(", salt=").append(Arrays.toString(salt));
-        sb.append(", signer=").append(signer);
+        sb.append(", signer='").append(signer).append('\'');
+        sb.append(", to='").append(to).append('\'');
+        sb.append(", value=").append(value);
+        sb.append(", data=").append(Arrays.toString(data));
+        sb.append(", minGasLimit=").append(minGasLimit);
+        sb.append(", maxGasPrice=").append(maxGasPrice);
         sb.append('}');
         return sb.toString();
     }
-
-
 }

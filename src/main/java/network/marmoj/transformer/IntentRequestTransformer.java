@@ -6,11 +6,6 @@ import network.marmoj.model.request.IntentRequest;
 import network.marmoj.model.request.SignatureDataRequest;
 import org.web3j.utils.Numeric;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -33,7 +28,7 @@ public class IntentRequestTransformer {
         request.setSigner(intent.getSigner());
         request.setSignature(transform(signedIntent.getSignature()));
         request.setId(Numeric.toHexString(intent.getId()));
-        request.setTx(IntentTxRequestTransformer.transform(intent.getTx()));
+        request.setTx(IntentTxRequestTransformer.transform(intent));
         return request;
     };
 
