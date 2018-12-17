@@ -3,7 +3,6 @@ package network.marmoj.model.core;
 import static org.web3j.crypto.Sign.SignatureData;
 
 public class SignedIntent {
-
     private Intent intent;
     private SignatureData signature;
 

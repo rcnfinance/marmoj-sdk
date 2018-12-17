@@ -26,9 +26,6 @@ ext {
 
 dependencies {
     compile "org.web3j:core:$web3jVersion"
-    compile ("org.springframework.boot:spring-boot-starter:$springBootVersion") {
-        exclude module: 'commons-logging'
-    }
     compile group: 'org.asynchttpclient', name: 'async-http-client', version: '2.6.0'
     compile "ch.qos.logback:logback-core:$logbackVersion",
             "ch.qos.logback:logback-classic:$logbackVersion"
@@ -36,9 +33,6 @@ dependencies {
 }
 
 configurations {
-    // We need to exclude these as they clash with gradle-4.10+
-    testRuntimeClasspath.exclude module: 'spring-boot-starter-logging'
     testRuntimeClasspath.exclude module: "logback-classic"
-    testCompileClasspath.exclude module: 'spring-boot-starter-logging'
     testCompileClasspath.exclude module: "logback-classic"
 }

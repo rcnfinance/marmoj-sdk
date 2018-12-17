@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 
 public class ERC20Impl implements ERC20 {
-
     public static final String TRANSFER = "transfer";
     public static final String ALLOWANCE = "allowance";
     public static final String BALANCE_OF = "balanceOf";
@@ -31,7 +30,8 @@ public class ERC20Impl implements ERC20 {
     public IntentAction totalSupply() {
         final Function function = new Function(TOTAL_SUPPLY,
                 Arrays.asList(),
-                Arrays.asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new TypeReference<Uint256>() {
+                }));
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 
@@ -39,7 +39,8 @@ public class ERC20Impl implements ERC20 {
     public IntentAction balanceOf(Address who) {
         final Function function = new Function(BALANCE_OF,
                 Arrays.asList(who),
-                Arrays.asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new TypeReference<Uint256>() {
+                }));
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 
@@ -47,7 +48,8 @@ public class ERC20Impl implements ERC20 {
     public IntentAction allowance(Address owner, Address spender) {
         final Function function = new Function(ALLOWANCE,
                 Arrays.asList(owner, spender),
-                Arrays.asList(new TypeReference<Uint256>() {}));
+                Arrays.asList(new TypeReference<Uint256>() {
+                }));
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 
@@ -55,7 +57,8 @@ public class ERC20Impl implements ERC20 {
     public IntentAction transfer(Address to, Uint256 value) {
         final Function function = new Function(TRANSFER,
                 Arrays.asList(to, value),
-                Arrays.asList(new TypeReference<Bool>() {}));
+                Arrays.asList(new TypeReference<Bool>() {
+                }));
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 
@@ -63,7 +66,8 @@ public class ERC20Impl implements ERC20 {
     public IntentAction approve(Address spender, Uint256 value) {
         final Function function = new Function(APPROVE,
                 Arrays.asList(spender, value),
-                Arrays.asList(new TypeReference<Bool>() {}));
+                Arrays.asList(new TypeReference<Bool>() {
+                }));
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 
@@ -71,7 +75,8 @@ public class ERC20Impl implements ERC20 {
     public IntentAction transferFrom(Address from, Address to, Uint256 value) {
         final Function function = new Function(TRANSFER_FROM,
                 Arrays.asList(from, to, value),
-                Arrays.asList(new TypeReference<Bool>() {}));
+                Arrays.asList(new TypeReference<Bool>() {
+                }));
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 

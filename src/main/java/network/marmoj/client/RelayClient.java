@@ -2,34 +2,38 @@ package network.marmoj.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpResponseStatus;
+import network.marmoj.model.core.SignedIntent;
 import network.marmoj.model.request.IntentRequest;
 import network.marmoj.model.response.IntentResponse;
+import network.marmoj.transformer.IntentRequestTransformer;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
-@Component
-public class IntentClientImpl implements IntentClient {
-    private static final Logger LOGGER = LoggerFactory.getLogger(IntentClientImpl.class);
-    public static final String PATH = "http://10.148.108.93:8081/relay/";
+public class RelayClient implements IRelayClient {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RelayClient.class);
+    private final String path;
 
-    @Override
-    public IntentResponse post(IntentRequest intent) {
+    public RelayClient(String path) {
+        this.path = path;
+    }
+
+    public IntentResponse send(SignedIntent intent) {
 
         try (AsyncHttpClient asyncHttpClient = asyncHttpClient()) {
 
             ObjectMapper mapper = new ObjectMapper();
-            String body = mapper.writeValueAsString(intent);
+            IntentRequest request = IntentRequestTransformer.transform(intent);
+            String body = mapper.writeValueAsString(request);
             LOGGER.info(body);
 
             asyncHttpClient
-                    .preparePost(PATH)
+                    .preparePost(path)
                     .setBody(body)
                     .execute()
                     .toCompletableFuture()
@@ -42,5 +46,6 @@ public class IntentClientImpl implements IntentClient {
             return new IntentResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
 

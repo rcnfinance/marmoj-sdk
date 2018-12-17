@@ -1,9 +1,9 @@
-package network.marmoj.service;
+package network.marmoj.client;
 
 import network.marmoj.model.core.SignedIntent;
 import network.marmoj.model.response.IntentResponse;
 
-public interface IntentService {
+public interface IRelayClient {
 
     IntentResponse send(SignedIntent intent);
 

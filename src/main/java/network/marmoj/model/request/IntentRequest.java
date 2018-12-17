@@ -3,7 +3,6 @@ package network.marmoj.model.request;
 import java.util.List;
 
 public class IntentRequest {
-
     private String id;
     List<String> dependencies;
     private String wallet;

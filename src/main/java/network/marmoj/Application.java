@@ -1,44 +1,20 @@
 package network.marmoj;
 
 import network.marmoj.builder.IntentBuilder;
+import network.marmoj.client.IRelayClient;
+import network.marmoj.client.RelayClient;
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.IntentAction;
 import network.marmoj.model.core.SignedIntent;
 import network.marmoj.model.data.ERC20Impl;
-import network.marmoj.service.IntentService;
 import network.marmoj.utils.MarmoUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.crypto.Credentials;
-import org.web3j.utils.Numeric;
 
-import java.math.BigInteger;
-
-@SpringBootApplication
-public class Application implements CommandLineRunner {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-
-    @Autowired
-    private IntentService intentService;
+public class Application {
 
     public static void main(String[] args) throws Exception {
-
-        SpringApplication app = new SpringApplication(Application.class);
-        app.setBannerMode(Banner.Mode.OFF);
-        app.run(args);
-
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
 
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4";
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
@@ -60,9 +36,9 @@ public class Application implements CommandLineRunner {
 
         SignedIntent sign = MarmoUtils.sign(intent, credentials);
 
-        intentService.send(sign);
+        IRelayClient client = new RelayClient("http://.../relay");
+        client.send(sign);
 
     }
-
 
 }

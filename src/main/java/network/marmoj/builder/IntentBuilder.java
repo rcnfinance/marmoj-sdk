@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class IntentBuilder {
-
     public static final int SIZE_32 = 32;
     public static final int SIZE_64 = 64;
     public static final int SIZE_PREFIX = 2;
