@@ -3,7 +3,6 @@ package network.marmoj.builder;
 import network.marmoj.exception.ValidationException;
 import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.IntentAction;
-import network.marmoj.utils.MarmoUtils;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
@@ -75,19 +74,13 @@ public final class IntentBuilder {
 
     public Intent build() {
         if (signer == null) {
-            new ValidationException("signer");
+            throw new ValidationException("signer");
         }
         if (wallet == null) {
-            new ValidationException("wallet");
+            throw new ValidationException("wallet");
         }
-        if (to == null) {
-            new ValidationException("to");
-        }
-        if (value == null) {
-            new ValidationException("value");
-        }
-        if (data == null) {
-            new ValidationException("data");
+        if (to == null || value == null || data == null) {
+            throw new ValidationException("intentAction");
         }
 
         Intent intent = new Intent();
