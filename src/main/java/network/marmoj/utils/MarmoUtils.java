@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 
 public class MarmoUtils {
 
+    public static final int SIZE_PREFIX = 2;
+    public static final String PREFIX = "0x";
+
     public static SignedIntent sign(Intent intent, Credentials credentials) {
         SignedIntentBuilder signedIntentBuilder = SignedIntentBuilder.aSignedIntent()
                 .withIntent(intent)
@@ -26,7 +29,11 @@ public class MarmoUtils {
     public static String keccak256(byte[] data) {
         Keccak.DigestKeccak kecc = new Keccak.Digest256();
         kecc.update(data, BigDecimal.ZERO.intValue(), data.length);
-        return Numeric.toHexString(kecc.digest());
+        return sanitizePrefix(Numeric.toHexString(kecc.digest()));
+    }
+
+    public static String sanitizePrefix(String data) {
+        return data.substring(SIZE_PREFIX);
     }
 
 }

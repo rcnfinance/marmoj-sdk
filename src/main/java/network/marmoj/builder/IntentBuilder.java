@@ -10,11 +10,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import static network.marmoj.utils.MarmoUtils.*;
+import static org.web3j.utils.Numeric.toHexStringNoPrefixZeroPadded;
+
 public final class IntentBuilder {
     public static final int SIZE_32 = 32;
     public static final int SIZE_64 = 64;
-    public static final int SIZE_PREFIX = 2;
-    public static final String PREFIX = "0x";
 
     private List<byte[]> dependencies = new ArrayList<>();
     private String signer;
@@ -106,12 +107,12 @@ public final class IntentBuilder {
     private byte[] generateId() {
 
         String wallet = this.wallet;
-        String dependencies = sanitizePrefix(MarmoUtils.keccak256(sanitizeDependencies(this.dependencies)));
+        String dependencies = keccak256(sanitizeDependencies(this.dependencies));
         String to = sanitizePrefix(this.to);
-        String value = Numeric.toHexStringNoPrefixZeroPadded(this.value, SIZE_64);
-        String data = sanitizePrefix(MarmoUtils.keccak256(this.data));
-        String minGasLimit = Numeric.toHexStringNoPrefixZeroPadded(this.minGasLimit, SIZE_64);
-        String maxGasLimit = Numeric.toHexStringNoPrefixZeroPadded(this.maxGasPrice, SIZE_64);
+        String value = toHexStringNoPrefixZeroPadded(this.value, SIZE_64);
+        String data = keccak256(this.data);
+        String minGasLimit = toHexStringNoPrefixZeroPadded(this.minGasLimit, SIZE_64);
+        String maxGasLimit = toHexStringNoPrefixZeroPadded(this.maxGasPrice, SIZE_64);
         String salt = sanitizePrefix(Numeric.toHexString(this.salt));
 
         StringBuilder encodePackedBuilder = new StringBuilder()
@@ -124,12 +125,8 @@ public final class IntentBuilder {
                 .append(maxGasLimit)
                 .append(salt);
 
-        String encodePacked = MarmoUtils.keccak256(encodePackedBuilder.toString());
+        String encodePacked = keccak256(encodePackedBuilder.toString());
         return Numeric.hexStringToByteArray(encodePacked);
-    }
-
-    private String sanitizePrefix(String data) {
-        return data.substring(SIZE_PREFIX);
     }
 
     private String sanitizeDependencies(List<byte[]> dependencies) {
