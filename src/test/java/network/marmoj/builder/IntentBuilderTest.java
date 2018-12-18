@@ -17,6 +17,7 @@ import java.util.List;
 import static org.web3j.utils.Numeric.hexStringToByteArray;
 import static org.web3j.utils.Numeric.toHexString;
 
+//TODO: Add assert to other attributes.
 public class IntentBuilderTest {
 
     /*
