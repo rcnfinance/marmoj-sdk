@@ -27,7 +27,7 @@ public class Application {
         );
 
         Credentials credentials = Credentials.create("512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
-        String contractAddress = "0x7256599269794b05843B8BF93b687eBFFbd85856";
+        String contractAddress = "0x7c0e959d9b7c82d47c5013832f89282b8b773393";
         Intent intent = IntentBuilder.anIntent()
                 .withSigner(credentials.getAddress())
                 .withWallet(contractAddress)
@@ -36,7 +36,7 @@ public class Application {
 
         SignedIntent sign = MarmoUtils.sign(intent, credentials);
 
-        IRelayClient client = new RelayClient("http://e5649791.ngrok.io/relay/");
+        IRelayClient client = new RelayClient("http://3681c535.ngrok.io/relay/");
         client.send(sign);
 
     }

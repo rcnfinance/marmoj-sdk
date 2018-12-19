@@ -48,7 +48,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: gradle shadowJar
+      - run: gradle jar
       - persist_to_workspace:
           root: ~/
           paths:

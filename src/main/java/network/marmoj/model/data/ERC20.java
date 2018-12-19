@@ -32,7 +32,7 @@ public class ERC20 implements IERC20 {
                 Arrays.asList(),
                 Arrays.asList(new TypeReference<Uint256>() {
                 }));
-        return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
+        return getIntentAction(function);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ERC20 implements IERC20 {
                 Arrays.asList(who),
                 Arrays.asList(new TypeReference<Uint256>() {
                 }));
-        return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
+        return getIntentAction(function);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ERC20 implements IERC20 {
                 Arrays.asList(owner, spender),
                 Arrays.asList(new TypeReference<Uint256>() {
                 }));
-        return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
+        return getIntentAction(function);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ERC20 implements IERC20 {
                 Arrays.asList(to, value),
                 Arrays.asList(new TypeReference<Bool>() {
                 }));
-        return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
+        return getIntentAction(function);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ERC20 implements IERC20 {
                 Arrays.asList(spender, value),
                 Arrays.asList(new TypeReference<Bool>() {
                 }));
-        return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
+        return getIntentAction(function);
     }
 
     @Override
@@ -77,6 +77,10 @@ public class ERC20 implements IERC20 {
                 Arrays.asList(from, to, value),
                 Arrays.asList(new TypeReference<Bool>() {
                 }));
+        return getIntentAction(function);
+    }
+
+    private IntentAction getIntentAction(Function function) {
         return new IntentAction(this.contractAddress, FunctionEncoder.encode(function), BigInteger.ZERO);
     }
 
