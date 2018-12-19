@@ -68,6 +68,3 @@ workflows:
       - build-jar:
           requires:
             - unit-test
-      - run:
-          requires:
-            - build-jar
