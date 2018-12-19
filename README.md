@@ -1,6 +1,23 @@
 # marmoj-sdk
 [![CircleCI](https://circleci.com/gh/ripio/marmoj-sdk.svg?style=shield)](https://circleci.com/gh/ripio/marmoj-sdk)
 
+# Description
+Marmoj-sdk helps to developers java/android to consume marmo-relayer.
+
+# Simple Summary
+Allowing users to sign messages to show intent of execution, but allowing a third party relayer (https://github.com/ripio/marmo-relayer) to execute them is an emerging pattern being. This pattern simplifies the integration with any Ethereum based platform.
+
+# Abstract
+## User pain points:
+- users don't want to think about ether
+- users want to be able to pay for transactions using what they 
+- Users don’t want to download apps/extensions (at least on the desktop) to connect to their apps
+
+# Ecosystem Graph
+![](./images/01.png)
+
+
+# Examples
 ```java
 String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4";
 String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";

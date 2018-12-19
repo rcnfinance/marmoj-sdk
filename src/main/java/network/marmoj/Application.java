@@ -36,7 +36,7 @@ public class Application {
 
         SignedIntent sign = MarmoUtils.sign(intent, credentials);
 
-        IRelayClient client = new RelayClient("http://3681c535.ngrok.io/relay/");
+        IRelayClient client = new RelayClient("http://ec2-3-16-37-20.us-east-2.compute.amazonaws.com/relay/");
         client.send(sign);
 
     }
