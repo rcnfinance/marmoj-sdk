@@ -4,6 +4,7 @@ import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.SignedIntent;
 import org.junit.Assert;
 import org.junit.Test;
+import org.web3j.utils.Numeric;
 
 import java.security.SignatureException;
 
@@ -105,5 +106,13 @@ public class MarmoUtilsTest {
                 TEST_MESSAGE, new SignatureData((byte) 27, new byte[]{1}, new byte[]{0}));
     }
 
+    @Test
+    public void create2Test() {
+        byte[] from = Numeric.hexStringToByteArray("ca35b7d915458ef540ade6068dfe2f44e8fa733c");
+        byte[] salt = Numeric.hexStringToByteArray("0000000000000000000000000000000000000000000000000000000000000001");
+        byte[] code = Numeric.hexStringToByteArray("6080604052348015600f57600080fd5b50606780601d6000396000f3fe6080604052366000803760008036600073000000d781bcca1b13eba4fc04f1a8fdb12f69825af43d6000803e8015156036573d6000fd5b3d6000f3fea165627a7a7230582033b260661546dd9894b994173484da72335f9efc37248d27e6da483f15afc1350029");
+
+        Assert.assertEquals("0x90ce4b17b425167341ac5d1e716b233e64728c26", MarmoUtils.create2(from, code, salt));
+    }
 
 }
