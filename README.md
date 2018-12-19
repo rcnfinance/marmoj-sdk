@@ -1,4 +1,5 @@
 # marmoj-sdk
+[![CircleCI](https://circleci.com/gh/ripio/marmoj-sdk.svg?style=shield)](https://circleci.com/gh/ripio/marmoj-sdk)
 
 ```java
 String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4";
