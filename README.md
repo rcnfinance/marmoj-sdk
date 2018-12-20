@@ -11,17 +11,14 @@ to execute them is an emerging pattern being. This pattern simplifies the integr
 
 # Abstract
 ### User pain points:
-- users don't want to think about ether
-- users want to be able to pay for transactions using what they 
-- Users don’t want to download apps/extensions (at least on the desktop) to connect to their apps
-
-# Table of Contents
-- In Work
+> - Users don't want to think about ether
+> - Users want to be able to pay for transactions using what they 
+> - Users don’t want to download apps/extensions (at least on the desktop) to connect to their apps
 
 # Ecosystem Graph
 ![](./images/01.png)
 
-###### General WIKI ecosystem
+###### General WIKI ecosystem.
 - In work.
 ###### API layer
 - Marmo relayer doc: (https://github.com/ripio/marmo-relayer/blob/master/README.md)
@@ -50,7 +47,7 @@ to execute them is an emerging pattern being. This pattern simplifies the integr
 Typically your application should depend on release versions of marmoj, but you may also use snapshot dependencies
 for early access to features and fixes, refer to the  `Snapshot Dependencies`_ section.
 
-| Add the relevant dependency to your project:
+#### Add the relevant dependency to your project:
 
 ##### Maven
 
@@ -78,36 +75,36 @@ Java 8:
 ![](./images/02.png)
 
 ###### Dependencies
-- T0  -> -
-- T1  -> - 
-- T2  -> T1
-- T3  -> T1
-- T4  -> T1
-- T5  -> T1, T4
-- T6  -> T2
-- T7  -> T2
-- T8  -> T2
-- T9  -> T3
-- T10 -> T4
-- T11 -> T5
-- T12 -> T6
-- T13 -> T7
-- T14 -> T8
-- T15 -> T9
-- T16 -> T10
-- T17 -> T10
-- T18 -> T11
-- T19 -> T13
-- T20 -> T14
-- T21 -> T15
-- T22 -> T18
-- T23 -> T19
-- T24 -> T21
-- T25 -> T22
-- T26 -> T12, T23, T20, T15
-- T27 -> T24
-- T28 -> T25
-- T29 -> T27
+> - T0  -> -
+> - T1  -> - 
+> - T2  -> T1
+> - T3  -> T1
+> - T4  -> T1
+> - T5  -> T1, T4
+> - T6  -> T2
+> - T7  -> T2
+> - T8  -> T2
+> - T9  -> T3
+> - T10 -> T4
+> - T11 -> T5
+> - T12 -> T6
+> - T13 -> T7
+> - T14 -> T8
+> - T15 -> T9
+> - T16 -> T10
+> - T17 -> T10
+> - T18 -> T11
+> - T19 -> T13
+> - T20 -> T14
+> - T21 -> T15
+> - T22 -> T18
+> - T23 -> T19
+> - T24 -> T21
+> - T25 -> T22
+> - T26 -> T12, T23, T20, T15
+> - T27 -> T24
+> - T28 -> T25
+> - T29 -> T27
 
 
 ### Build a intent
