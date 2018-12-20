@@ -219,8 +219,6 @@ Intent intent = IntentBuilder.anIntent()
         .withIntentAction(intentAction)
         .build();
 
-Assert.assertEquals(toHexString(intent.getId()), "0xee2e1b62b008e27a5a3d66352f87e760ed85e723b6834e622f38b626090f536e");
-
 /*
     Test with:
     - balanceOf
@@ -246,9 +244,6 @@ Intent intent = IntentBuilder.anIntent()
         .withWallet(contractAddress)
         .withIntentAction(intentAction)
         .build();
-
-Assert.assertEquals(toHexString(intent.getId()), "0x19ca8e36872eaf21cd75c9319cfd08769b61fcb7c8ab119d71960c27585595af");
-
 
 /*
     Test with:
@@ -278,9 +273,6 @@ Intent intent = IntentBuilder.anIntent()
         .withWallet(contractAddress)
         .withIntentAction(intentAction)
         .build();
-
-Assert.assertEquals(toHexString(intent.getId()), "0xab4b18a2b163ac552a6d2eac23529e4d5e25ff54c41831b75e8c169a03f39a20");
-
 
 /*
     Test with:
@@ -314,9 +306,6 @@ Intent intent = IntentBuilder.anIntent()
         .withMaxGasPrice(BigInteger.valueOf(999999))
         .withIntentAction(intentAction)
         .build();
-
-Assert.assertEquals(toHexString(intent.getId()), "0x9ef832fe6023c21990339fe87724fe5a19fdb4697ce32769c238eb6ab9b92b2c");
-
 
 /*
     Test with:
@@ -354,9 +343,6 @@ Intent intent = IntentBuilder.anIntent()
         .withSalt(hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000000001"))
         .build();
 
-Assert.assertEquals(toHexString(intent.getId()), "0xfc1e9fd25abd26a1be78817f0675a5051285af23957ca0322f2925d93f291ec5");
-
-
 /*
     Test with:
     - balanceOf
@@ -391,7 +377,5 @@ Intent intent = IntentBuilder.anIntent()
         .withIntentAction(intentAction)
         .withSalt(hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000000002"))
         .build();
-
-Assert.assertEquals(toHexString(intent.getId()), "0xacd5d801cecc1790b95c5395e4f48a40d964ae0c6b70051b3c907060e67da079");
 
 ```
