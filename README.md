@@ -73,6 +73,43 @@ Java 8:
 ```
    
 # how it works?
+
+### Intent Flowchart
+![](./images/02.png)
+
+###### Dependencies
+- T0  -> -
+- T1  -> - 
+- T2  -> T1
+- T3  -> T1
+- T4  -> T1
+- T5  -> T1, T4
+- T6  -> T2
+- T7  -> T2
+- T8  -> T2
+- T9  -> T3
+- T10 -> T4
+- T11 -> T5
+- T12 -> T6
+- T13 -> T7
+- T14 -> T8
+- T15 -> T9
+- T16 -> T10
+- T17 -> T10
+- T18 -> T11
+- T19 -> T13
+- T20 -> T14
+- T21 -> T15
+- T22 -> T18
+- T23 -> T19
+- T24 -> T21
+- T25 -> T22
+- T26 -> T12, T23, T20, T15
+- T27 -> T24
+- T28 -> T25
+- T29 -> T27
+
+
 ### Build a intent
 ```java
 String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
