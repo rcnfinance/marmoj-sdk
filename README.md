@@ -395,3 +395,7 @@ Intent intent = IntentBuilder.anIntent()
 Assert.assertEquals(toHexString(intent.getId()), "0xacd5d801cecc1790b95c5395e4f48a40d964ae0c6b70051b3c907060e67da079");
 
 ```
+
+### Other implementations
+ - JS [marmojs-sdk](https://github.com/ripio/marmojs-sdk)
+ - Python [marmopy-sdk](https://github.com/ripio/marmopy-sdk)
