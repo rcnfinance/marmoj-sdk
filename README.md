@@ -1,9 +1,7 @@
-# Marmoj-sdk
-[![CircleCI](https://circleci.com/gh/ripio/marmoj-sdk.svg?style=shield)](https://circleci.com/gh/ripio/marmoj-sdk)
-
-
-# Description
+![Marmo](./images/logo.png)
 Marmoj-sdk helps java/android developers to consume Marmo Relayer.
+
+[![CircleCI](https://circleci.com/gh/ripio/marmoj-sdk.svg?style=shield)](https://circleci.com/gh/ripio/marmoj-sdk)
 
 # Simple Summary
 Allowing users to sign messages to show intent of execution, but allowing a third party relayer to execute them is an emerging pattern being used in many projects. 
