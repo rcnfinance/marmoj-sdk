@@ -29,7 +29,7 @@ public class IntentBuilderTest {
         - IntentAction (0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB, 1)
      */
     @Test
-    public void IntentBuilderI() {
+    public void testGenerateIdSuccessOne() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN Token
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -59,7 +59,7 @@ public class IntentBuilderTest {
         - IntentAction (0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB, 1)
      */
     @Test
-    public void IntentBuilderII() {
+    public void testGenerateIdSuccessTwo() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -88,7 +88,7 @@ public class IntentBuilderTest {
         - IntentAction (0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB, 1)
      */
     @Test
-    public void IntentBuilderIII() {
+    public void testGenerateIdSuccessOneDependency() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -118,7 +118,7 @@ public class IntentBuilderTest {
         - IntentAction (0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB, 1)
      */
     @Test
-    public void IntentBuilderIV() {
+    public void testGenerateIdSuccessTwoDependency() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -154,7 +154,7 @@ public class IntentBuilderTest {
         - IntentAction (0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB, 1)
      */
     @Test
-    public void IntentBuilderV() {
+    public void testGenerateIdSuccessWithOptionalParams() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -193,7 +193,7 @@ public class IntentBuilderTest {
         - Salt (0x0000000000000000000000000000000000000000000000000000000000000001)
      */
     @Test
-    public void IntentBuilderVI() {
+    public void testGenerateIdSuccessWithSaltOne() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -233,7 +233,7 @@ public class IntentBuilderTest {
         - Salt (0x0000000000000000000000000000000000000000000000000000000000000001)
      */
     @Test
-    public void IntentBuilderVII() {
+    public void testGenerateIdSuccessWithSaltTwo() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -265,7 +265,7 @@ public class IntentBuilderTest {
         Fail -> Test without signer.
      */
     @Test(expected = ValidationException.class)
-    public void IntentBuilderVIII() {
+    public void testGenerateIdFailWithoutSigner() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -292,7 +292,7 @@ public class IntentBuilderTest {
         Fail -> Test without wallet.
      */
     @Test(expected = ValidationException.class)
-    public void IntentBuilderIX() {
+    public void testGenerateIdFailWithoutWallet() {
         String tokenContractAddress = "0x2f45b6fb2f28a73f110400386da31044b2e953d4"; //RCN TOKEN
         String to = "0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB";
 
@@ -319,7 +319,7 @@ public class IntentBuilderTest {
         Fail -> Test without intentAction.
      */
     @Test(expected = ValidationException.class)
-    public void IntentBuilderX() {
+    public void testGenerateIdFailWithoutIntentAction() {
 
         Credentials credentials = Credentials.create("512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
         String contractAddress = "0xbbf289d846208c16edc8474705c748aff07732db";

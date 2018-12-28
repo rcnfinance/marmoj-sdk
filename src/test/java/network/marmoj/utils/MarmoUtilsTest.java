@@ -4,6 +4,7 @@ import network.marmoj.model.core.Intent;
 import network.marmoj.model.core.SignedIntent;
 import org.junit.Assert;
 import org.junit.Test;
+import org.web3j.crypto.Credentials;
 import org.web3j.utils.Numeric;
 
 import java.security.SignatureException;
@@ -16,7 +17,7 @@ import static org.web3j.utils.Numeric.hexStringToByteArray;
 
 public class MarmoUtilsTest {
 
-
+    private Credentials credentials = Credentials.create("512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
     @Test
     public void testKeccak256() {
         assertEquals(keccak256(""), "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
@@ -84,20 +85,15 @@ public class MarmoUtilsTest {
         Intent intent = new Intent();
         intent.setId(TEST_MESSAGE);
 
-        SignedIntent signedIntent = sign(intent, SampleKeys.CREDENTIALS);
+        SignedIntent signedIntent = sign(intent, credentials);
 
         SignatureData expected = new SignatureData(
                 (byte) 27,
-                hexStringToByteArray("0xbefef6d19dc2da2d5e394d2d2bc68b5cd1c4f869a19b2b2d6dbccce84702edd6"),
-                hexStringToByteArray("0x7d83911011b94392fcf701b6ddee49e4f50d3ce92b306dae538007e4228fa9a1")
+                hexStringToByteArray("0x29c41ba6f881cf3dc0703912f9525b03c874e7acd76332b3fa0936265cd6aa69"),
+                hexStringToByteArray("0x1bace13eb20f73743dfe0fbcab0b9dd481133940ad3664a33f33969450ec6df7")
         );
 
         Assert.assertEquals(signedIntent.getSignature(), expected);
-    }
-
-    @Test
-    public void testPublicKeyFromPrivateKey() {
-        Assert.assertEquals(publicKeyFromPrivate(SampleKeys.PRIVATE_KEY), SampleKeys.PUBLIC_KEY);
     }
 
     @Test(expected = RuntimeException.class)
