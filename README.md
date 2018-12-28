@@ -145,7 +145,7 @@ SignedIntent sign = MarmoUtils.sign(intent, credentials);
 ###  Send a intent
 ```java
 IRelayClient client = new RelayClient("http://ec2-3-16-37-20.us-east-2.compute.amazonaws.com/relay"); //relay url
-client.send(sign);
+client.post(sign);
 
  # Post Data Example
  {
