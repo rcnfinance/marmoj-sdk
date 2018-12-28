@@ -230,7 +230,7 @@ public class IntentBuilderTest {
         - Min gas 300000
         - Max gas 999999
         - IntentAction (0x7F5EB5bB5cF88cfcEe9613368636f458800e62CB, 1)
-        - Salt (0x0000000000000000000000000000000000000000000000000000000000000001)
+        - Salt (0x0000000000000000000000000000000000000000000000000000000000000002)
      */
     @Test
     public void testGenerateIdSuccessWithSaltTwo() {
