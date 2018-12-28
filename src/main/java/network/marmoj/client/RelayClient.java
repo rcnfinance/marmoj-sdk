@@ -23,7 +23,7 @@ public class RelayClient implements IRelayClient {
         this.path = path;
     }
 
-    public IntentResponse send(SignedIntent intent) {
+    public IntentResponse post(SignedIntent intent) {
 
         try (AsyncHttpClient asyncHttpClient = asyncHttpClient()) {
 

@@ -5,6 +5,6 @@ import network.marmoj.model.response.IntentResponse;
 
 public interface IRelayClient {
 
-    IntentResponse send(SignedIntent intent);
+    IntentResponse post(SignedIntent intent);
 
 }
