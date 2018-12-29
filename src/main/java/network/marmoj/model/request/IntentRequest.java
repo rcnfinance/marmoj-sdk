@@ -9,6 +9,7 @@ public class IntentRequest {
     private IntentTxRequest tx;
     private String salt;
     private String signer;
+    private String expiration;
     private SignatureDataRequest signature;
 
     public String getId() {
@@ -65,5 +66,13 @@ public class IntentRequest {
 
     public void setSigner(String signer) {
         this.signer = signer;
+    }
+
+    public String getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(String expiration) {
+        this.expiration = expiration;
     }
 }

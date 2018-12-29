@@ -19,6 +19,7 @@ public final class IntentBuilder {
     private List<byte[]> dependencies = new ArrayList<>();
     private String signer;
     private String wallet;
+    private String expiration = Integer.valueOf(15).toString();
     private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
 
     /* For transactions */
@@ -49,6 +50,11 @@ public final class IntentBuilder {
 
     public IntentBuilder withWallet(String wallet) {
         this.wallet = wallet;
+        return this;
+    }
+
+    public IntentBuilder withExpiration(String days) {
+        this.expiration = days;
         return this;
     }
 
@@ -90,6 +96,7 @@ public final class IntentBuilder {
         intent.setWallet(wallet);
         intent.setSalt(salt);
         intent.setTo(to);
+        intent.setExpiration(expiration);
         intent.setValue(value);
         intent.setData(data);
         intent.setMinGasLimit(minGasLimit);

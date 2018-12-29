@@ -24,6 +24,7 @@ public class IntentRequestTransformer {
                 .collect(Collectors.toList());
         request.setDependencies(dependencies);
         request.setSalt(Numeric.toHexString(intent.getSalt()));
+        request.setExpiration(intent.getExpiration());
         request.setWallet(intent.getWallet());
         request.setSigner(intent.getSigner());
         request.setSignature(transform(signedIntent.getSignature()));
