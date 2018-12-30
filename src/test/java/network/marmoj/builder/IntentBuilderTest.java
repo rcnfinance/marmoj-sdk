@@ -48,7 +48,7 @@ public class IntentBuilderTest {
                 .withIntentAction(intentAction)
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0x6b67aac6eda8798297b1591da36a215bfbe1fed666c4676faf5a214d54e9e928");
+        Assert.assertEquals(toHexString(intent.getId()), "0x7935c8f49cb284e1c5c8dd95b3fc6c9cad6519a17555a5f2e43f9aaa31d25a37");
     }
 
     /*
@@ -76,7 +76,7 @@ public class IntentBuilderTest {
                 .withIntentAction(intentAction)
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0xee2e1b62b008e27a5a3d66352f87e760ed85e723b6834e622f38b626090f536e");
+        Assert.assertEquals(toHexString(intent.getId()), "0x0dd96a883c69dca2fef7de903ed543b2751919592a799902aa84ce7ed6a23479");
     }
 
     /*
@@ -106,7 +106,7 @@ public class IntentBuilderTest {
                 .withIntentAction(intentAction)
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0x19ca8e36872eaf21cd75c9319cfd08769b61fcb7c8ab119d71960c27585595af");
+        Assert.assertEquals(toHexString(intent.getId()), "0x5de183da65683636ad564c80559c6cf68d5c738239f15da75e5a020d039cf7fb");
     }
 
     /*
@@ -140,7 +140,7 @@ public class IntentBuilderTest {
                 .withIntentAction(intentAction)
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0xab4b18a2b163ac552a6d2eac23529e4d5e25ff54c41831b75e8c169a03f39a20");
+        Assert.assertEquals(toHexString(intent.getId()), "0x0d42d9890e1c0cca4d56ec5b532e6f7f1597f5cda57a0c1726f0eb25d2bc4a26");
     }
 
     /*
@@ -178,7 +178,7 @@ public class IntentBuilderTest {
                 .withIntentAction(intentAction)
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0x9ef832fe6023c21990339fe87724fe5a19fdb4697ce32769c238eb6ab9b92b2c");
+        Assert.assertEquals(toHexString(intent.getId()), "0x40b7b0871f7b3e25020766c21545be0ef33349a949b6f4b9548387d4d539a110");
     }
 
     /*
@@ -218,7 +218,7 @@ public class IntentBuilderTest {
                 .withSalt(hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000000001"))
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0xfc1e9fd25abd26a1be78817f0675a5051285af23957ca0322f2925d93f291ec5");
+        Assert.assertEquals(toHexString(intent.getId()), "0x63bfa4961085e360ff2507256aae202ef05fe1883475eb21456796b81f5a0e58");
     }
 
     /*
@@ -258,7 +258,7 @@ public class IntentBuilderTest {
                 .withSalt(hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000000002"))
                 .build();
 
-        Assert.assertEquals(toHexString(intent.getId()), "0xacd5d801cecc1790b95c5395e4f48a40d964ae0c6b70051b3c907060e67da079");
+        Assert.assertEquals(toHexString(intent.getId()), "0x6e78ee9f136303375275ad50c6f0823f5863a148d351552409685a8b491d3a98");
     }
 
     /*

@@ -19,7 +19,7 @@ public final class IntentBuilder {
     private List<byte[]> dependencies = new ArrayList<>();
     private String signer;
     private String wallet;
-    private String expiration = Integer.valueOf(15).toString();
+    private BigInteger expiration = BigInteger.valueOf(15);
     private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
 
     /* For transactions */
@@ -53,7 +53,7 @@ public final class IntentBuilder {
         return this;
     }
 
-    public IntentBuilder withExpiration(String days) {
+    public IntentBuilder withExpiration(BigInteger days) {
         this.expiration = days;
         return this;
     }
@@ -114,6 +114,7 @@ public final class IntentBuilder {
         String minGasLimit = toHexStringNoPrefixZeroPadded(this.minGasLimit, SIZE_64);
         String maxGasLimit = toHexStringNoPrefixZeroPadded(this.maxGasPrice, SIZE_64);
         String salt = sanitizePrefix(Numeric.toHexString(this.salt));
+        String expiration = toHexStringNoPrefixZeroPadded(this.expiration, SIZE_64);
 
         StringBuilder encodePackedBuilder = new StringBuilder()
                 .append(wallet)
@@ -123,7 +124,8 @@ public final class IntentBuilder {
                 .append(data)
                 .append(minGasLimit)
                 .append(maxGasLimit)
-                .append(salt);
+                .append(salt)
+                .append(expiration);
 
         String encodePacked = keccak256(encodePackedBuilder.toString());
         return Numeric.hexStringToByteArray(encodePacked);

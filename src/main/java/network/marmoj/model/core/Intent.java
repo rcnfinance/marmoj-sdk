@@ -11,7 +11,7 @@ public class Intent {
     private String wallet;
     private byte[] salt;
     private String signer;
-    private String expiration;
+    private BigInteger expiration;
     /* For Transactions */
     private String to;
     private BigInteger value;
@@ -43,11 +43,11 @@ public class Intent {
         this.wallet = wallet;
     }
 
-    public String getExpiration() {
+    public BigInteger getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(String expiration) {
+    public void setExpiration(BigInteger expiration) {
         this.expiration = expiration;
     }
 

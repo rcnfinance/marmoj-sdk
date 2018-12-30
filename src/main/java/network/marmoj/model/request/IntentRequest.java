@@ -1,5 +1,6 @@
 package network.marmoj.model.request;
 
+import java.math.BigInteger;
 import java.util.List;
 
 public class IntentRequest {
@@ -9,7 +10,7 @@ public class IntentRequest {
     private IntentTxRequest tx;
     private String salt;
     private String signer;
-    private String expiration;
+    private BigInteger expiration;
     private SignatureDataRequest signature;
 
     public String getId() {
@@ -68,11 +69,11 @@ public class IntentRequest {
         this.signer = signer;
     }
 
-    public String getExpiration() {
+    public BigInteger getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(String expiration) {
+    public void setExpiration(BigInteger expiration) {
         this.expiration = expiration;
     }
 }
