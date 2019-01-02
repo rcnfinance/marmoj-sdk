@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
@@ -32,17 +34,16 @@ public class RelayClient implements IRelayClient {
             String body = mapper.writeValueAsString(request);
             LOGGER.info(String.format("[Post Body -> %s]", body));
 
-            asyncHttpClient
+            Integer code = asyncHttpClient
                     .preparePost(path)
                     .setBody(body)
                     .execute()
                     .toCompletableFuture()
-                    .thenApply(Response::getResponseBody)
-                    .thenAccept(System.out::println)
-                    .join();
+                    .thenApply(Response::getStatusCode)
+                    .get();
 
-            return new IntentResponse(HttpResponseStatus.OK);
-        } catch (IOException e) {
+            return new IntentResponse(HttpResponseStatus.valueOf(code));
+        } catch (Exception e) {
             return new IntentResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR);
         }
     }
