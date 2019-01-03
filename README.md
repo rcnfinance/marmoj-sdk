@@ -1,5 +1,5 @@
 ![Marmo](./images/logo.png)
-Marmoj-sdk helps java/android developers to consume Marmo Relayer.
+Marmo wallet JAVA SDK.
 
 [![CircleCI](https://circleci.com/gh/ripio/marmoj-sdk.svg?style=shield)](https://circleci.com/gh/ripio/marmoj-sdk)
 
