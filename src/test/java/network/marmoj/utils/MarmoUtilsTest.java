@@ -1,19 +1,12 @@
 package network.marmoj.utils;
 
-import network.marmoj.model.core.Intent;
-import network.marmoj.model.core.SignedIntent;
 import org.junit.Assert;
 import org.junit.Test;
 import org.web3j.crypto.Credentials;
 import org.web3j.utils.Numeric;
 
-import java.security.SignatureException;
-
 import static network.marmoj.utils.MarmoUtils.keccak256;
-import static network.marmoj.utils.MarmoUtils.sign;
 import static org.junit.Assert.assertEquals;
-import static org.web3j.crypto.Sign.*;
-import static org.web3j.utils.Numeric.hexStringToByteArray;
 
 public class MarmoUtilsTest {
 
@@ -76,32 +69,7 @@ public class MarmoUtilsTest {
         assertEquals(keccak256("ec0f99711016c6a2a07ad80d16427506ce6f441059fd269442baaa28c6ca037b22eeac49d5d894c0bf66219f2c08e9d0e8ab21de52"), "81147cba0647eee78c4784874c0557621a138ca781fb6f5dcd0d9c609af56f35");
         assertEquals(keccak256("0dc45181337ca32a8222fe7a3bf42fc9f89744259cff653504d6051fe84b1a7ffd20cb47d4696ce212a686bb9be9a8ab1c697b6d6a33"), "5b6d7eda559574fae882e6266f4c2be362133e44b5a947ecb6e75db9fc8567e0");
     }
-
-    private static final byte[] TEST_MESSAGE = Numeric.hexStringToByteArray("0x29c41ba6f881cf3dc0703912f9525b03c874e7acd76332b3fa0936265cd6aa69");
-
-    @Test
-    public void testSignMessage() {
-
-        Intent intent = new Intent();
-        intent.setId(TEST_MESSAGE);
-
-        SignedIntent signedIntent = sign(intent, credentials);
-
-        SignatureData expected = new SignatureData(
-                hexStringToByteArray("0x1c")[0],
-                hexStringToByteArray("0xdffe81bea3c90f2b345fc4f3039af1a076527252b4b42efb4820c61dd690e63d"),
-                hexStringToByteArray("0x383feb2dc675241fcb78a4c740370e08d149ff88866d976d06393deb28cff6df")
-        );
-
-        Assert.assertEquals(signedIntent.getSignature(), expected);
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void testInvalidSignature() throws SignatureException {
-        signedMessageToKey(
-                TEST_MESSAGE, new SignatureData((byte) 27, new byte[]{1}, new byte[]{0}));
-    }
-
+    
     @Test
     public void create2Test() {
         byte[] from = Numeric.hexStringToByteArray("6e987b4079ace809bb298d1bff546dac3dee09b1");
