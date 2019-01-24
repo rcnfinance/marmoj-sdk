@@ -18,13 +18,6 @@ public class MarmoUtils {
     public static final int SIZE_PREFIX = 2;
     public static final String PREFIX = "0x";
 
-    public static SignedIntent sign(Intent intent, Credentials credentials) {
-        SignedIntentBuilder signedIntentBuilder = SignedIntentBuilder.aSignedIntent()
-                .withIntent(intent)
-                .withSignature(Sign.signMessage(intent.getId(), credentials.getEcKeyPair(), false));
-        return signedIntentBuilder.build();
-    }
-
     public static String keccak256(String data) {
         return keccak256(Numeric.hexStringToByteArray(data));
     }
