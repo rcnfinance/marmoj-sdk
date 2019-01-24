@@ -1,9 +1,19 @@
 package network.marmoj.model.request;
 
+import org.web3j.utils.Numeric;
+
+import static org.web3j.crypto.Sign.*;
+
 public class SignatureDataRequest {
     private String r;
     private String s;
     private String v;
+
+    public SignatureDataRequest(SignatureData signature) {
+        this.r = Numeric.toHexString(signature.getR());
+        this.s = Numeric.toHexString(signature.getS());
+        this.v = Numeric.toHexString(new byte[]{signature.getV()});
+    }
 
     public String getR() {
         return r;
