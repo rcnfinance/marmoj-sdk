@@ -1,7 +1,13 @@
 package network.marmoj.model.request;
 
+import network.marmoj.model.core.Intent;
+import network.marmoj.model.core.SignedIntent;
+import org.web3j.utils.Numeric;
+
 import java.math.BigInteger;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class IntentRequest {
     private String id;
@@ -12,6 +18,22 @@ public class IntentRequest {
     private String signer;
     private BigInteger expiration;
     private SignatureDataRequest signature;
+
+    public IntentRequest(SignedIntent signedIntent) {
+        Intent intent = signedIntent.getIntent();
+        List<String> dependencies = intent.getDependencies()
+                .stream()
+                .map(it -> Numeric.toHexString(it))
+                .collect(Collectors.toList());
+        this.dependencies = dependencies;
+        this.salt = Numeric.toHexString(intent.getSalt());
+        this.expiration = intent.getExpiration();
+        this.wallet = signedIntent.getWallet().getAddress();
+        this.signer = signedIntent.getWallet().getSigner();
+        this.signature = new SignatureDataRequest(signedIntent.getSignature());
+        this.id = Numeric.toHexString(signedIntent.getId());
+        this.tx = new IntentTxRequest(intent);
+    }
 
     public String getId() {
         return id;
@@ -76,4 +98,6 @@ public class IntentRequest {
     public void setExpiration(BigInteger expiration) {
         this.expiration = expiration;
     }
+
 }
+

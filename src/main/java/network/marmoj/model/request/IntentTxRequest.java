@@ -1,5 +1,8 @@
 package network.marmoj.model.request;
 
+import network.marmoj.model.core.Intent;
+import org.web3j.utils.Numeric;
+
 import java.math.BigInteger;
 
 public class IntentTxRequest {
@@ -8,6 +11,14 @@ public class IntentTxRequest {
     private String data;
     private BigInteger minGasLimit;
     private BigInteger maxGasPrice;
+
+    public IntentTxRequest(Intent intentTx) {
+        this.data = Numeric.toHexString(intentTx.getData());
+        this.minGasLimit = intentTx.getMinGasLimit();
+        this.maxGasPrice = intentTx.getMaxGasPrice();
+        this.to = intentTx.getTo();
+        this.value = intentTx.getValue();
+    }
 
     public String getTo() {
         return to;

@@ -1,33 +1,50 @@
 package network.marmoj.model.core;
 
+import io.netty.handler.codec.http.HttpResponseStatus;
+import network.marmoj.client.RelayClient;
+import network.marmoj.config.Provider;
+import network.marmoj.model.response.IntentResponse;
+
 import static org.web3j.crypto.Sign.SignatureData;
 
 public class SignedIntent {
+    private byte[] id;
     private Intent intent;
     private SignatureData signature;
+    private IntentWallet wallet;
+
+    public SignedIntent(byte[] id, Intent intent, SignatureData signature, IntentWallet wallet) {
+        this.id = id;
+        this.intent = intent;
+        this.signature = signature;
+        this.wallet = wallet;
+    }
+
+    public byte[] getId() {
+        return id;
+    }
 
     public Intent getIntent() {
         return intent;
-    }
-
-    public void setIntent(Intent intent) {
-        this.intent = intent;
     }
 
     public SignatureData getSignature() {
         return signature;
     }
 
-    public void setSignature(SignatureData signature) {
-        this.signature = signature;
+    public IntentWallet getWallet() {
+        return wallet;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("SignedIntent{");
-        sb.append("intent=").append(intent);
-        sb.append(", signature=").append(signature);
-        sb.append('}');
-        return sb.toString();
+    public boolean relay(Provider provider) {
+        RelayClient relayClient = new RelayClient(provider.getRelayer());
+        IntentResponse response = relayClient.post(this);
+        return HttpResponseStatus.OK.equals(response.getStatus());
     }
+
+    public IntentStatus status(Provider provider) {
+        return null;
+    }
+
+
 }
