@@ -16,8 +16,6 @@ public final class IntentBuilder {
     public static final int SIZE_32 = 32;
 
     private List<byte[]> dependencies = new ArrayList<>();
-    private String signer;
-    private String wallet;
     private BigInteger expiration = BigInteger.valueOf(15);
     private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
 
@@ -39,16 +37,6 @@ public final class IntentBuilder {
         this.to = intentAction.getTo();
         this.value = intentAction.getValue();
         this.data = Numeric.hexStringToByteArray(intentAction.getData());
-        return this;
-    }
-
-    public IntentBuilder withSigner(String signer) {
-        this.signer = signer;
-        return this;
-    }
-
-    public IntentBuilder withWallet(String wallet) {
-        this.wallet = wallet;
         return this;
     }
 
@@ -78,28 +66,11 @@ public final class IntentBuilder {
     }
 
     public Intent build() {
-        if (signer == null) {
-            throw new ValidationException("signer");
-        }
-        if (wallet == null) {
-            throw new ValidationException("wallet");
-        }
         if (to == null || value == null) {
             throw new ValidationException("intentAction");
         }
 
-        Intent intent = new Intent();
-        intent.setSigner(signer);
-        intent.setDependencies(dependencies);
-        intent.setWallet(wallet);
-        intent.setSalt(salt);
-        intent.setTo(to);
-        intent.setExpiration(expiration);
-        intent.setValue(value);
-        intent.setData(data);
-        intent.setMinGasLimit(minGasLimit);
-        intent.setMaxGasPrice(maxGasPrice);
-        return intent;
+        return new Intent(dependencies, salt, to, expiration, value, data, minGasLimit, maxGasPrice);
     }
 
 

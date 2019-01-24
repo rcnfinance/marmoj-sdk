@@ -8,14 +8,12 @@ import org.web3j.utils.Numeric;
 import java.util.List;
 
 import static network.marmoj.utils.MarmoUtils.*;
-import static org.web3j.crypto.Sign.SignatureData;
 import static org.web3j.utils.Numeric.toHexStringNoPrefixZeroPadded;
 
 public final class SignedIntentBuilder {
     public static final int SIZE_64 = 64;
 
     private Intent intent;
-    private SignatureData signature;
     private IntentWallet wallet;
 
     private SignedIntentBuilder() {
@@ -35,16 +33,13 @@ public final class SignedIntentBuilder {
         return this;
     }
 
-    public SignedIntentBuilder withSignature(SignatureData signature) {
-        this.signature = signature;
-        return this;
-    }
-
     public SignedIntent build() {
-        return new SignedIntent(generateId(), this.intent, this.signature, this.wallet);
+        byte[] id = buildId();
+        IntentWallet wallet = this.wallet;
+        return new SignedIntent(id, this.intent, wallet.sign(id, wallet.getCredentials()), wallet);
     }
 
-    private byte[] generateId() {
+    private byte[] buildId() {
         String wallet = this.wallet.getAddress();
         String dependencies = keccak256(sanitizeDependencies(this.intent.getDependencies()));
         String to = sanitizePrefix(this.intent.getTo());
