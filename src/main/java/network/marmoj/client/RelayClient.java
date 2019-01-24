@@ -5,15 +5,10 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import network.marmoj.model.core.SignedIntent;
 import network.marmoj.model.request.IntentRequest;
 import network.marmoj.model.response.IntentResponse;
-import network.marmoj.transformer.IntentRequestTransformer;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
 
 import static org.asynchttpclient.Dsl.asyncHttpClient;
 
@@ -30,7 +25,7 @@ public class RelayClient implements IRelayClient {
         try (AsyncHttpClient asyncHttpClient = asyncHttpClient()) {
 
             ObjectMapper mapper = new ObjectMapper();
-            IntentRequest request = IntentRequestTransformer.transform(intent);
+            IntentRequest request = new IntentRequest(intent);
             String body = mapper.writeValueAsString(request);
             LOGGER.info(String.format("[Post Body -> %s]", body));
 
