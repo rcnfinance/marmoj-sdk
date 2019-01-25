@@ -1,8 +1,8 @@
 package network.marmoj.builder;
 
-import network.marmoj.model.core.Intent;
-import network.marmoj.model.core.IntentWallet;
-import network.marmoj.model.core.SignedIntent;
+import network.marmoj.model.Intent;
+import network.marmoj.model.IntentWallet;
+import network.marmoj.model.SignedIntent;
 import org.web3j.utils.Numeric;
 
 import java.util.List;

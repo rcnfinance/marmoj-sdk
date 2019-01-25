@@ -1,6 +1,6 @@
-package network.marmoj.model.request;
+package network.marmoj.client.request;
 
-import network.marmoj.model.core.Intent;
+import network.marmoj.model.Intent;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;

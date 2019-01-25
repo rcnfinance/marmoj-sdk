@@ -1,16 +1,13 @@
 package network.marmoj.builder;
 
 import network.marmoj.exception.ValidationException;
-import network.marmoj.model.core.Intent;
-import network.marmoj.model.core.IntentAction;
+import network.marmoj.model.Intent;
+import network.marmoj.model.IntentAction;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-
-import static network.marmoj.utils.MarmoUtils.*;
-import static org.web3j.utils.Numeric.toHexStringNoPrefixZeroPadded;
 
 public final class IntentBuilder {
     public static final int SIZE_32 = 32;

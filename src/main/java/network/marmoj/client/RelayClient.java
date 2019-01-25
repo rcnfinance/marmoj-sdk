@@ -2,9 +2,9 @@ package network.marmoj.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.handler.codec.http.HttpResponseStatus;
-import network.marmoj.model.core.SignedIntent;
-import network.marmoj.model.request.IntentRequest;
-import network.marmoj.model.response.IntentResponse;
+import network.marmoj.model.SignedIntent;
+import network.marmoj.client.request.IntentRequest;
+import network.marmoj.client.response.IntentResponse;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.Response;
 import org.slf4j.Logger;

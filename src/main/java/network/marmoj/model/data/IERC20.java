@@ -1,6 +1,6 @@
 package network.marmoj.model.data;
 
-import network.marmoj.model.core.IntentAction;
+import network.marmoj.model.IntentAction;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
 

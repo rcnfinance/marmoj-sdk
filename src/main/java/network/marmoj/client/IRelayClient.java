@@ -1,7 +1,7 @@
 package network.marmoj.client;
 
-import network.marmoj.model.core.SignedIntent;
-import network.marmoj.model.response.IntentResponse;
+import network.marmoj.model.SignedIntent;
+import network.marmoj.client.response.IntentResponse;
 
 public interface IRelayClient {
 

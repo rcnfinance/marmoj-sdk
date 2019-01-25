@@ -1,4 +1,4 @@
-package network.marmoj.model.response;
+package network.marmoj.client.response;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 

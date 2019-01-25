@@ -1,4 +1,4 @@
-package network.marmoj.model.core;
+package network.marmoj.model;
 
 import network.marmoj.config.Config;
 import org.web3j.crypto.Credentials;

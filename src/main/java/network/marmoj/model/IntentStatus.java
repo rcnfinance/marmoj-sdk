@@ -1,4 +1,4 @@
-package network.marmoj.model.core;
+package network.marmoj.model;
 
 public class IntentStatus {
     private IntentStatusCode code;

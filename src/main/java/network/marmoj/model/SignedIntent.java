@@ -1,9 +1,9 @@
-package network.marmoj.model.core;
+package network.marmoj.model;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 import network.marmoj.client.RelayClient;
 import network.marmoj.config.Provider;
-import network.marmoj.model.response.IntentResponse;
+import network.marmoj.client.response.IntentResponse;
 
 import static org.web3j.crypto.Sign.SignatureData;
 

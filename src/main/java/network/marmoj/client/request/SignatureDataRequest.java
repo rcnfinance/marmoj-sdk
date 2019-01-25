@@ -1,4 +1,4 @@
-package network.marmoj.model.request;
+package network.marmoj.client.request;
 
 import org.web3j.utils.Numeric;
 

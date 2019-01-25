@@ -1,12 +1,7 @@
 package network.marmoj.utils;
 
-import network.marmoj.builder.SignedIntentBuilder;
-import network.marmoj.model.core.Intent;
-import network.marmoj.model.core.SignedIntent;
 import org.bouncycastle.jcajce.provider.digest.Keccak;
-import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Hash;
-import org.web3j.crypto.Sign;
 import org.web3j.utils.Numeric;
 
 import java.math.BigDecimal;
