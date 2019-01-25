@@ -8,6 +8,9 @@ import org.web3j.crypto.Sign;
 import org.web3j.crypto.Sign.SignatureData;
 import org.web3j.utils.Numeric;
 
+import java.math.BigInteger;
+import java.util.Arrays;
+
 import static java.util.Arrays.copyOfRange;
 import static network.marmoj.utils.MarmoUtils.*;
 import static org.web3j.crypto.Hash.sha3;
@@ -27,9 +30,12 @@ public class IntentWallet {
         this.address = generateAddress(
                 hexStringToByteArray(sanitizePrefix(this.getConfig().getMarmoSork())),
                 hexStringToByteArray(sanitizePrefix(this.getConfig().getInitCode())),
-                hexStringToByteArray(sanitizePrefix(this.signer))
+                hexStringToByteArray(toHexStringZeroPadded(this.signer))
         );
-
+        System.out.println(this.address);
+        System.out.println(this.signer);
+        System.out.println(this.config.getMarmoSork());
+        System.out.println(this.config.getInitCode());
     }
 
     public Config getConfig() {

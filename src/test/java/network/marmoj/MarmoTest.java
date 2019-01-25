@@ -42,8 +42,11 @@ public class MarmoTest {
                 new Address("0x009ab4de1234c7066197d6ed75743add3576591f"),
                 new Uint256(4)
         );
-
-        IntentWallet intentWallet = new IntentWallet(privs[1], Config.getInstance());
+        Config config = Config.newInstance(
+                "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
+                "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
+        );
+        IntentWallet intentWallet = new IntentWallet(privs[1], config);
 
         Intent intent = IntentBuilder.anIntent()
                 .withSalt(BigInteger.ZERO.toByteArray())

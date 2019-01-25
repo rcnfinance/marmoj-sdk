@@ -9,6 +9,13 @@ public class Config {
 
     private Config(){}
 
+    public static Config newInstance(String initCode, String marmoSork) {
+        instance = new Config();
+        instance.setInitCode(initCode);
+        instance.setMarmoSork(marmoSork);
+        return instance;
+    }
+
     public static Config getInstance() {
         if(instance == null){
             instance = new Config();

@@ -24,7 +24,14 @@ public class MarmoUtils {
         return data.substring(SIZE_PREFIX);
     }
 
-
-
+    public static String toHexStringZeroPadded(String value) {
+        value = sanitizePrefix(value);
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < 64 - value.length(); i++) {
+            out.append(0);
+        }
+        out.append(value);
+        return out.toString();
+    }
 
 }
