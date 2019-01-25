@@ -32,10 +32,7 @@ public class IntentWallet {
                 hexStringToByteArray(sanitizePrefix(this.getConfig().getInitCode())),
                 hexStringToByteArray(toHexStringZeroPadded(this.signer))
         );
-        System.out.println(this.address);
-        System.out.println(this.signer);
-        System.out.println(this.config.getMarmoSork());
-        System.out.println(this.config.getInitCode());
+
     }
 
     public Config getConfig() {
