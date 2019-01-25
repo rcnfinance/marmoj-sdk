@@ -10,7 +10,6 @@ import static org.junit.Assert.assertEquals;
 
 public class MarmoUtilsTest {
 
-    private Credentials credentials = Credentials.create("512850c7ebe3e1ade1d0f28ef6eebdd3ba4e78748e0682f8fda6fc2c2c5b334a");
     @Test
     public void testKeccak256() {
         assertEquals(keccak256(""), "c5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470");
@@ -68,15 +67,6 @@ public class MarmoUtilsTest {
         assertEquals(keccak256("c8f2b693bd0d75ef99caebdc22adf4088a95a3542f637203e283bbc3268780e787d68d28cc3897452f6a22aa8573ccebf245972a"), "24204d491f202534859fc0a208237184471a2d801fb3b934d0968d0d843d0345");
         assertEquals(keccak256("ec0f99711016c6a2a07ad80d16427506ce6f441059fd269442baaa28c6ca037b22eeac49d5d894c0bf66219f2c08e9d0e8ab21de52"), "81147cba0647eee78c4784874c0557621a138ca781fb6f5dcd0d9c609af56f35");
         assertEquals(keccak256("0dc45181337ca32a8222fe7a3bf42fc9f89744259cff653504d6051fe84b1a7ffd20cb47d4696ce212a686bb9be9a8ab1c697b6d6a33"), "5b6d7eda559574fae882e6266f4c2be362133e44b5a947ecb6e75db9fc8567e0");
-    }
-    
-    @Test
-    public void create2Test() {
-        byte[] from = Numeric.hexStringToByteArray("6e987b4079ace809bb298d1bff546dac3dee09b1");
-        byte[] salt = Numeric.hexStringToByteArray("0000000000000000000000000000000000000000000000000000000000000001");
-        byte[] code = Numeric.hexStringToByteArray("6080604052348015600f57600080fd5b50606780601d6000396000f3fe60806040523660008037600080366000736e987b4079ace809bb298d1bff546dac3dee09b15af43d6000803e8015156036573d6000fd5b3d6000f3fea165627a7a7230582033b260661546dd9894b994173484da72335f9efc37248d27e6da483f15afc1350029");
-
-        //Assert.assertEquals("0x4fd62d0ef3e5c7ea86d32d230dc3fa8a2abdd61d", MarmoUtils.create2(from, code, salt));
     }
 
 }
