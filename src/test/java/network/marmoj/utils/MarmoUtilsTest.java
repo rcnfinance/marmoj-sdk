@@ -1,9 +1,6 @@
 package network.marmoj.utils;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.web3j.crypto.Credentials;
-import org.web3j.utils.Numeric;
 
 import static network.marmoj.utils.MarmoUtils.keccak256;
 import static org.junit.Assert.assertEquals;

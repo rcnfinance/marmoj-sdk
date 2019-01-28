@@ -1,8 +1,8 @@
 package network.marmoj.builder;
 
 import network.marmoj.Intent;
-import network.marmoj.model.IntentWallet;
 import network.marmoj.SignedIntent;
+import network.marmoj.model.IntentWallet;
 import org.web3j.utils.Numeric;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public final class SignedIntentBuilder {
 
     private String sanitizeDependencies(List<byte[]> dependencies) {
         StringBuilder dependenciesBuiler = new StringBuilder();
-        for (byte[] dependency: dependencies) {
+        for (byte[] dependency : dependencies) {
             dependenciesBuiler.append(sanitizePrefix(Numeric.toHexString(dependency)));
         }
         String result = dependenciesBuiler.toString();

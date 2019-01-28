@@ -1,7 +1,7 @@
 package network.marmoj.builder;
 
-import network.marmoj.exception.ValidationException;
 import network.marmoj.Intent;
+import network.marmoj.exception.ValidationException;
 import network.marmoj.model.IntentAction;
 import org.web3j.utils.Numeric;
 
@@ -23,7 +23,8 @@ public final class IntentBuilder {
     private BigInteger minGasLimit = BigInteger.valueOf(0);
     private BigInteger maxGasPrice = BigInteger.valueOf(9999999999L);
 
-    private IntentBuilder() { }
+    private IntentBuilder() {
+    }
 
     public static IntentBuilder anIntent() {
         IntentBuilder intentBuilder = new IntentBuilder();
@@ -69,7 +70,6 @@ public final class IntentBuilder {
 
         return new Intent(dependencies, salt, to, expiration, value, data, minGasLimit, maxGasPrice);
     }
-
 
 
 }

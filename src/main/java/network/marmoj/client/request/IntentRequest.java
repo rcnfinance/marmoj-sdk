@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class IntentRequest {
-    private String id;
     List<String> dependencies;
+    private String id;
     private String wallet;
     private IntentTxRequest tx;
     private String salt;

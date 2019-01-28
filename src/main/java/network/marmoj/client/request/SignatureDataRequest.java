@@ -2,7 +2,7 @@ package network.marmoj.client.request;
 
 import org.web3j.utils.Numeric;
 
-import static org.web3j.crypto.Sign.*;
+import static org.web3j.crypto.Sign.SignatureData;
 
 public class SignatureDataRequest {
     private String r;

@@ -143,7 +143,7 @@ public class MarmoTest {
 
         Assert.assertEquals(toHexString(signedIntent.getSignature().getR()), "0x29d321ce0d6d2f8a4070f4c54bf19917987d10aa7aff967eb70f995f45522ef5");
         Assert.assertEquals(toHexString(signedIntent.getSignature().getS()), "0x01ae6eedc4f5cf12518bcb7894ec0345fef8860c288e319bf6a71c38fa617c09");
-        Assert.assertEquals(String.valueOf(signedIntent.getSignature().getV()),"28");
+        Assert.assertEquals(String.valueOf(signedIntent.getSignature().getV()), "28");
 
 
     }

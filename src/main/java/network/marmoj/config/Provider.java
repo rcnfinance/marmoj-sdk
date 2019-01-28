@@ -4,8 +4,8 @@ import org.web3j.protocol.Web3j;
 
 public class Provider {
 
-   private String relayer;
-   private Web3j web3;
+    private String relayer;
+    private Web3j web3;
 
     public String getRelayer() {
         return relayer;

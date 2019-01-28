@@ -3,12 +3,12 @@ package network.marmoj.config;
 import network.marmoj.config.enums.Network;
 
 public class Config {
+    private static Config instance;
     private String initCode;
     private String marmoSork;
 
-    private static Config instance;
-
-    private Config(){}
+    private Config() {
+    }
 
     public static Config newInstance(Network network) {
         instance = new Config();
