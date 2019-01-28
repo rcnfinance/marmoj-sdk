@@ -1,20 +1,16 @@
 package network.marmoj.model;
 
 import network.marmoj.config.Config;
-import network.marmoj.utils.MarmoUtils;
 import org.web3j.crypto.Credentials;
-import org.web3j.crypto.Hash;
 import org.web3j.crypto.Sign;
 import org.web3j.crypto.Sign.SignatureData;
-import org.web3j.utils.Numeric;
-
-import java.math.BigInteger;
-import java.util.Arrays;
 
 import static java.util.Arrays.copyOfRange;
-import static network.marmoj.utils.MarmoUtils.*;
+import static network.marmoj.utils.MarmoUtils.sanitizePrefix;
+import static network.marmoj.utils.MarmoUtils.toHexStringZeroPadded;
 import static org.web3j.crypto.Hash.sha3;
-import static org.web3j.utils.Numeric.*;
+import static org.web3j.utils.Numeric.hexStringToByteArray;
+import static org.web3j.utils.Numeric.toHexString;
 
 public class IntentWallet {
 
@@ -36,9 +32,6 @@ public class IntentWallet {
     }
 
     public Config getConfig() {
-        if (config == null) {
-            config = Config.getInstance();
-        }
         return config;
     }
 
