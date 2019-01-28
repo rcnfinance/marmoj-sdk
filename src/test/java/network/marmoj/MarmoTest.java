@@ -8,13 +8,17 @@ import network.marmoj.model.IntentAction;
 import network.marmoj.model.IntentWallet;
 import network.marmoj.model.SignedIntent;
 import network.marmoj.model.data.ERC20;
+import network.marmoj.model.data.ISendEth;
+import network.marmoj.model.data.ETH;
 import org.junit.Assert;
 import org.junit.Test;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
-
+import org.web3j.utils.Numeric;
 import java.math.BigInteger;
+import java.util.Arrays;
 
+import static org.web3j.utils.Numeric.*;
 import static org.web3j.utils.Numeric.toHexString;
 
 //TODO: Add assert to other attributes.
@@ -34,6 +38,33 @@ public class MarmoTest {
     };
 
     @Test
+    public void testGenerateIntentIdSendEth() {
+
+        ISendEth sendEth = new ETH();
+        IntentAction intentAction = sendEth.send("0x009ab4de1234c7066197d6ed75743add3576591f", BigInteger.ONE);
+        Config config = Config.newInstance(
+                "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
+                "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
+        );
+        IntentWallet intentWallet = new IntentWallet(privs[1], config);
+
+        Intent intent = IntentBuilder.anIntent()
+                .withSalt(hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000000000"))
+                .withExpiration(BigInteger.TEN.pow(24))
+                .withMinGasLimit(BigInteger.ZERO)
+                .withMaxGasPrice(BigInteger.TEN.pow(32))
+                .withIntentAction(intentAction)
+                .build();
+
+        SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
+                .withIntent(intent)
+                .withWallet(intentWallet)
+                .build();
+
+        Assert.assertEquals(toHexString(signedIntent.getId()), "0xa6daa52099d4083291c39a4beb2579dbfda6d24393c5e49f2549f08e37739b74");
+    }
+
+    @Test
     public void testGenerateIntentIdSendTokens() {
 
 
@@ -49,10 +80,10 @@ public class MarmoTest {
         IntentWallet intentWallet = new IntentWallet(privs[1], config);
 
         Intent intent = IntentBuilder.anIntent()
-                .withSalt(BigInteger.ZERO.toByteArray())
+                .withSalt(hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000000000"))
                 .withExpiration(BigInteger.valueOf(1548030494))
                 .withMinGasLimit(BigInteger.ZERO)
-                .withMaxGasPrice(BigInteger.valueOf(Double.valueOf(Math.pow(10, 32)).intValue()))
+                .withMaxGasPrice(BigInteger.TEN.pow(32))
                 .withIntentAction(intentAction)
                 .build();
 
@@ -62,6 +93,32 @@ public class MarmoTest {
                 .build();
 
         Assert.assertEquals(toHexString(signedIntent.getId()), "0xe34f44ab2514803ba5f1a4766f5fe1d6d012a9599c8e13843962366f04427198");
+    }
+
+    @Test
+    public void testGenerateIntentIdSendEthWithDependencies() {
+
+        ISendEth sendEth = new ETH();
+        IntentAction intentAction = sendEth.send("0x008d03067bcb29c5b35de2ee4a2fb88b965edf61", BigInteger.valueOf(2));
+        Config config = Config.newInstance(
+                "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
+                "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
+        );
+        IntentWallet intentWallet = new IntentWallet(privs[1], config);
+
+        Intent intent = IntentBuilder.anIntent()
+                .withExpiration(BigInteger.valueOf(1548069482))
+                .withMaxGasPrice(BigInteger.TEN.pow(32))
+                .withIntentAction(intentAction)
+                .withDependencies(Arrays.asList(hexStringToByteArray("0xa6daa52099d4083291c39a4beb2579dbfda6d24393c5e49f2549f08e37739b74")))
+                .build();
+
+        SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
+                .withIntent(intent)
+                .withWallet(intentWallet)
+                .build();
+
+        Assert.assertEquals(toHexString(signedIntent.getId()), "0x2cd48b6d072d54707850d17ca199e5c3ed8ecc3d626c78c872ac2a9e9b5f31ec");
     }
 
 
