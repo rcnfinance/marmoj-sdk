@@ -3,49 +3,50 @@ package network.marmoj.model;
 import java.math.BigInteger;
 
 public class IntentReceipt {
-    private String txHash;
-    private String relayer;
-    private BigInteger blockNumber;
-    private Boolean success;
-    private BigInteger confirmation;
 
-    public String getTxHash() {
-        return txHash;
-    }
+  private String txHash;
+  private String relayer;
+  private BigInteger blockNumber;
+  private Boolean success;
+  private BigInteger confirmation;
 
-    public void setTxHash(String txHash) {
-        this.txHash = txHash;
-    }
+  public String getTxHash() {
+    return txHash;
+  }
 
-    public String getRelayer() {
-        return relayer;
-    }
+  public void setTxHash(String txHash) {
+    this.txHash = txHash;
+  }
 
-    public void setRelayer(String relayer) {
-        this.relayer = relayer;
-    }
+  public String getRelayer() {
+    return relayer;
+  }
 
-    public BigInteger getBlockNumber() {
-        return blockNumber;
-    }
+  public void setRelayer(String relayer) {
+    this.relayer = relayer;
+  }
 
-    public void setBlockNumber(BigInteger blockNumber) {
-        this.blockNumber = blockNumber;
-    }
+  public BigInteger getBlockNumber() {
+    return blockNumber;
+  }
 
-    public Boolean getSuccess() {
-        return success;
-    }
+  public void setBlockNumber(BigInteger blockNumber) {
+    this.blockNumber = blockNumber;
+  }
 
-    public void setSuccess(Boolean success) {
-        this.success = success;
-    }
+  public Boolean getSuccess() {
+    return success;
+  }
 
-    public BigInteger getConfirmation() {
-        return confirmation;
-    }
+  public void setSuccess(Boolean success) {
+    this.success = success;
+  }
 
-    public void setConfirmation(BigInteger confirmation) {
-        this.confirmation = confirmation;
-    }
+  public BigInteger getConfirmation() {
+    return confirmation;
+  }
+
+  public void setConfirmation(BigInteger confirmation) {
+    this.confirmation = confirmation;
+  }
 }

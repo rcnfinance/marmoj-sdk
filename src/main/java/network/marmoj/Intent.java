@@ -4,58 +4,60 @@ import java.math.BigInteger;
 import java.util.List;
 
 public class Intent {
-    List<byte[]> dependencies;
-    private byte[] salt;
-    private BigInteger expiration;
-    /* For Transactions */
-    private String to;
-    private BigInteger value;
-    private byte[] data;
-    private BigInteger minGasLimit;
-    private BigInteger maxGasPrice;
 
-    public Intent(List<byte[]> dependencies, byte[] salt, String to, BigInteger expiration, BigInteger value,
-                  byte[] data, BigInteger minGasLimit, BigInteger maxGasPrice) {
-        this.dependencies = dependencies;
-        this.salt = salt;
-        this.expiration = expiration;
-        this.to = to;
-        this.value = value;
-        this.data = data;
-        this.minGasLimit = minGasLimit;
-        this.maxGasPrice = maxGasPrice;
-    }
+  List<byte[]> dependencies;
+  private byte[] salt;
+  private BigInteger expiration;
+  /* For Transactions */
+  private String to;
+  private BigInteger value;
+  private byte[] data;
+  private BigInteger minGasLimit;
+  private BigInteger maxGasPrice;
 
-    public List<byte[]> getDependencies() {
-        return dependencies;
-    }
+  public Intent(List<byte[]> dependencies, byte[] salt, String to, BigInteger expiration,
+      BigInteger value,
+      byte[] data, BigInteger minGasLimit, BigInteger maxGasPrice) {
+    this.dependencies = dependencies;
+    this.salt = salt;
+    this.expiration = expiration;
+    this.to = to;
+    this.value = value;
+    this.data = data;
+    this.minGasLimit = minGasLimit;
+    this.maxGasPrice = maxGasPrice;
+  }
 
-    public BigInteger getExpiration() {
-        return expiration;
-    }
+  public List<byte[]> getDependencies() {
+    return dependencies;
+  }
 
-    public byte[] getSalt() {
-        return salt;
-    }
+  public BigInteger getExpiration() {
+    return expiration;
+  }
 
-    public String getTo() {
-        return to;
-    }
+  public byte[] getSalt() {
+    return salt;
+  }
 
-    public BigInteger getValue() {
-        return value;
-    }
+  public String getTo() {
+    return to;
+  }
 
-    public byte[] getData() {
-        return data;
-    }
+  public BigInteger getValue() {
+    return value;
+  }
 
-    public BigInteger getMinGasLimit() {
-        return minGasLimit;
-    }
+  public byte[] getData() {
+    return data;
+  }
 
-    public BigInteger getMaxGasPrice() {
-        return maxGasPrice;
-    }
+  public BigInteger getMinGasLimit() {
+    return minGasLimit;
+  }
+
+  public BigInteger getMaxGasPrice() {
+    return maxGasPrice;
+  }
 
 }

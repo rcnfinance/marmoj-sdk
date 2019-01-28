@@ -1,41 +1,42 @@
 package network.marmoj.client.request;
 
-import org.web3j.utils.Numeric;
-
 import static org.web3j.crypto.Sign.SignatureData;
 
+import org.web3j.utils.Numeric;
+
 public class SignatureDataRequest {
-    private String r;
-    private String s;
-    private String v;
 
-    public SignatureDataRequest(SignatureData signature) {
-        this.r = Numeric.toHexString(signature.getR());
-        this.s = Numeric.toHexString(signature.getS());
-        this.v = Numeric.toHexString(new byte[]{signature.getV()});
-    }
+  private String r;
+  private String s;
+  private String v;
 
-    public String getR() {
-        return r;
-    }
+  public SignatureDataRequest(SignatureData signature) {
+    this.r = Numeric.toHexString(signature.getR());
+    this.s = Numeric.toHexString(signature.getS());
+    this.v = Numeric.toHexString(new byte[]{signature.getV()});
+  }
 
-    public void setR(String r) {
-        this.r = r;
-    }
+  public String getR() {
+    return r;
+  }
 
-    public String getS() {
-        return s;
-    }
+  public void setR(String r) {
+    this.r = r;
+  }
 
-    public void setS(String s) {
-        this.s = s;
-    }
+  public String getS() {
+    return s;
+  }
 
-    public String getV() {
-        return v;
-    }
+  public void setS(String s) {
+    this.s = s;
+  }
 
-    public void setV(String v) {
-        this.v = v;
-    }
+  public String getV() {
+    return v;
+  }
+
+  public void setV(String v) {
+    this.v = v;
+  }
 }
