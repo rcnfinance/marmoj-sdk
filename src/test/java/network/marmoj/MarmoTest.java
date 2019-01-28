@@ -14,14 +14,15 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
+import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import static org.web3j.utils.Numeric.*;
 import static org.web3j.utils.Numeric.hexStringToByteArray;
 import static org.web3j.utils.Numeric.toHexString;
 
-//TODO: Add assert to other attributes.
 public class MarmoTest {
 
     private static final String[] privs = {
@@ -119,6 +120,36 @@ public class MarmoTest {
                 .build();
 
         Assert.assertEquals(toHexString(signedIntent.getId()), "0x2cd48b6d072d54707850d17ca199e5c3ed8ecc3d626c78c872ac2a9e9b5f31ec");
+    }
+
+    @Test
+    public void testSign() {
+
+        ISendEth sendEth = new ETH();
+        IntentAction intentAction = sendEth.send("0x008d03067bcb29c5b35de2ee4a2fb88b965edf61", BigInteger.valueOf(2));
+        Config config = Config.newInstance(
+                "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
+                "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
+        );
+        IntentWallet intentWallet = new IntentWallet(privs[1], config);
+
+        Intent intent = IntentBuilder.anIntent()
+                .withExpiration(BigInteger.valueOf(1548069482))
+                .withMaxGasPrice(BigInteger.TEN.pow(32))
+                .withIntentAction(intentAction)
+                .withDependencies(Arrays.asList(hexStringToByteArray("0xa6daa52099d4083291c39a4beb2579dbfda6d24393c5e49f2549f08e37739b74")))
+                .build();
+
+        SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
+                .withIntent(intent)
+                .withWallet(intentWallet)
+                .build();
+
+        Assert.assertEquals(toHexString(signedIntent.getSignature().getR()), "0x29d321ce0d6d2f8a4070f4c54bf19917987d10aa7aff967eb70f995f45522ef5");
+        Assert.assertEquals(toHexString(signedIntent.getSignature().getS()), "0x01ae6eedc4f5cf12518bcb7894ec0345fef8860c288e319bf6a71c38fa617c09");
+        Assert.assertEquals(String.valueOf(signedIntent.getSignature().getV()),"28");
+
+
     }
 
 }
