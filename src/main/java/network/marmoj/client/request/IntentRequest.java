@@ -1,7 +1,7 @@
 package network.marmoj.client.request;
 
-import network.marmoj.model.Intent;
-import network.marmoj.model.SignedIntent;
+import network.marmoj.Intent;
+import network.marmoj.SignedIntent;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;

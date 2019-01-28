@@ -1,7 +1,7 @@
 package network.marmoj.builder;
 
 import network.marmoj.exception.ValidationException;
-import network.marmoj.model.Intent;
+import network.marmoj.Intent;
 import network.marmoj.model.IntentAction;
 import org.web3j.utils.Numeric;
 

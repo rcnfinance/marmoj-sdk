@@ -3,10 +3,8 @@ package network.marmoj;
 import network.marmoj.builder.IntentBuilder;
 import network.marmoj.builder.SignedIntentBuilder;
 import network.marmoj.config.Config;
-import network.marmoj.model.Intent;
 import network.marmoj.model.IntentAction;
 import network.marmoj.model.IntentWallet;
-import network.marmoj.model.SignedIntent;
 import network.marmoj.model.data.ERC20;
 import network.marmoj.model.data.ETH;
 import network.marmoj.model.data.ISendEth;
@@ -14,12 +12,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import static org.web3j.utils.Numeric.*;
 import static org.web3j.utils.Numeric.hexStringToByteArray;
 import static org.web3j.utils.Numeric.toHexString;
 

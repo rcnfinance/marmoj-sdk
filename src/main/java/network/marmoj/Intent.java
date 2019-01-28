@@ -1,7 +1,6 @@
-package network.marmoj.model;
+package network.marmoj;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 
 public class Intent {
