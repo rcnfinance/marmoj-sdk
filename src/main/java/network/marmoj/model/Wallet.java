@@ -8,18 +8,19 @@ import static org.web3j.utils.Numeric.hexStringToByteArray;
 import static org.web3j.utils.Numeric.toHexString;
 
 import network.marmoj.config.Config;
+import network.marmoj.exception.ValidationException;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.Sign;
 import org.web3j.crypto.Sign.SignatureData;
 
-public class IntentWallet {
+public class Wallet {
 
   private Config config;
   private Credentials credentials;
   private String signer;
   private String address;
 
-  public IntentWallet(String key, Config config) {
+  public Wallet(String key, Config config) {
     this.credentials = Credentials.create(key);
     this.signer = this.credentials.getAddress();
     this.config = config;
@@ -28,7 +29,13 @@ public class IntentWallet {
         hexStringToByteArray(sanitizePrefix(this.getConfig().getInitCode())),
         hexStringToByteArray(toHexStringZeroPadded(this.signer))
     );
+  }
 
+  public Wallet(String key) {
+    this(key, Config.getGlobal());
+    if (this.config == null) {
+      throw new ValidationException("A valid configuration must be provided or set as global");
+    }
   }
 
   public Config getConfig() {

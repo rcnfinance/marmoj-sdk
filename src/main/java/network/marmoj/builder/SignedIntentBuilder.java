@@ -8,7 +8,7 @@ import static org.web3j.utils.Numeric.toHexStringNoPrefixZeroPadded;
 import java.util.List;
 import network.marmoj.Intent;
 import network.marmoj.SignedIntent;
-import network.marmoj.model.IntentWallet;
+import network.marmoj.model.Wallet;
 import org.web3j.utils.Numeric;
 
 public final class SignedIntentBuilder {
@@ -16,7 +16,7 @@ public final class SignedIntentBuilder {
   public static final int SIZE_64 = 64;
 
   private Intent intent;
-  private IntentWallet wallet;
+  private Wallet wallet;
 
   private SignedIntentBuilder() {
   }
@@ -25,7 +25,7 @@ public final class SignedIntentBuilder {
     return new SignedIntentBuilder();
   }
 
-  public SignedIntentBuilder withWallet(IntentWallet wallet) {
+  public SignedIntentBuilder withWallet(Wallet wallet) {
     this.wallet = wallet;
     return this;
   }
@@ -37,7 +37,7 @@ public final class SignedIntentBuilder {
 
   public SignedIntent build() {
     byte[] id = buildId();
-    IntentWallet wallet = this.wallet;
+    Wallet wallet = this.wallet;
     return new SignedIntent(id, this.intent, wallet.sign(id, wallet.getCredentials()), wallet);
   }
 

@@ -6,17 +6,18 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import network.marmoj.client.RelayClient;
 import network.marmoj.client.response.IntentResponse;
 import network.marmoj.config.Provider;
+import network.marmoj.exception.ValidationException;
 import network.marmoj.model.IntentStatus;
-import network.marmoj.model.IntentWallet;
+import network.marmoj.model.Wallet;
 
 public class SignedIntent {
 
   private byte[] id;
   private Intent intent;
   private SignatureData signature;
-  private IntentWallet wallet;
+  private Wallet wallet;
 
-  public SignedIntent(byte[] id, Intent intent, SignatureData signature, IntentWallet wallet) {
+  public SignedIntent(byte[] id, Intent intent, SignatureData signature, Wallet wallet) {
     this.id = id;
     this.intent = intent;
     this.signature = signature;
@@ -35,7 +36,7 @@ public class SignedIntent {
     return signature;
   }
 
-  public IntentWallet getWallet() {
+  public Wallet getWallet() {
     return wallet;
   }
 
@@ -46,8 +47,12 @@ public class SignedIntent {
   }
 
   public IntentStatus status(Provider provider) {
+
+    if (provider == null) {
+      throw new ValidationException("The provider can not be null or undefined");
+    }
+    //TODO: MAKE IMPLEMENTATION
     return null;
   }
-
 
 }
