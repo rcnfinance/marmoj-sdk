@@ -1,8 +1,8 @@
 package network.marmoj.model;
 
 public enum IntentStatusCode {
-    ENDING,
-    SETTLING,
-    COMPLETED,
-    ERROR
+  ENDING,
+  SETTLING,
+  COMPLETED,
+  ERROR
 }
