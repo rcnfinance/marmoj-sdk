@@ -8,6 +8,7 @@ import java.util.Arrays;
 import network.marmoj.builder.IntentBuilder;
 import network.marmoj.builder.SignedIntentBuilder;
 import network.marmoj.config.Config;
+import network.marmoj.config.DefaultConf;
 import network.marmoj.model.IntentAction;
 import network.marmoj.model.Wallet;
 import network.marmoj.model.data.ERC20;
@@ -39,10 +40,7 @@ public class MarmoTest {
     ISendEth sendEth = new ETH();
     IntentAction intentAction = sendEth
         .send("0x009ab4de1234c7066197d6ed75743add3576591f", BigInteger.ONE);
-    Config config = new Config(
-        "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
-        "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
-    );
+    Config config = DefaultConf.ROPSTEN;
     Wallet wallet = new Wallet(privs[1], config);
 
     Intent intent = IntentBuilder.anIntent()
@@ -71,10 +69,8 @@ public class MarmoTest {
         new Address("0x009ab4de1234c7066197d6ed75743add3576591f"),
         new Uint256(4)
     );
-    Config config = new Config(
-        "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
-        "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
-    );
+    Config config =  DefaultConf.ROPSTEN;
+
     Wallet wallet = new Wallet(privs[1], config);
 
     Intent intent = IntentBuilder.anIntent()
@@ -101,10 +97,7 @@ public class MarmoTest {
     ISendEth sendEth = new ETH();
     IntentAction intentAction = sendEth
         .send("0x008d03067bcb29c5b35de2ee4a2fb88b965edf61", BigInteger.valueOf(2));
-    Config config = new Config(
-        "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
-        "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
-    );
+    Config config =  DefaultConf.ROPSTEN;
     Wallet wallet = new Wallet(privs[1], config);
 
     Intent intent = IntentBuilder.anIntent()
@@ -130,10 +123,7 @@ public class MarmoTest {
     ISendEth sendEth = new ETH();
     IntentAction intentAction = sendEth
         .send("0x008d03067bcb29c5b35de2ee4a2fb88b965edf61", BigInteger.valueOf(2));
-    Config config = new Config(
-        "0xe814f48c2eaf753ae51c7c807e2b1736700126c58af556d78c7c6158d201a125",
-        "0x4E0B13eDeE810702884b72DBE018579Cb2e4C6fA"
-    );
+    Config config = DefaultConf.ROPSTEN;
     Wallet wallet = new Wallet(privs[1], config);
 
     Intent intent = IntentBuilder.anIntent()
