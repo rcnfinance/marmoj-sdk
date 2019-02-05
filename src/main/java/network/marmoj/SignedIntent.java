@@ -5,6 +5,7 @@ import static org.web3j.crypto.Sign.SignatureData;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import network.marmoj.client.RelayClient;
 import network.marmoj.client.response.IntentResponse;
+import network.marmoj.config.DefaultProvider;
 import network.marmoj.config.Provider;
 import network.marmoj.exception.ValidationException;
 import network.marmoj.model.IntentStatus;
@@ -40,7 +41,14 @@ public class SignedIntent {
     return wallet;
   }
 
+  public boolean relay() {
+    return this.relay(Provider.getGlobal());
+  }
+
   public boolean relay(Provider provider) {
+    if (provider == null) {
+      return false;
+    }
     RelayClient relayClient = new RelayClient(provider.getRelayer());
     IntentResponse response = relayClient.post(this);
     return HttpResponseStatus.OK.equals(response.getStatus());

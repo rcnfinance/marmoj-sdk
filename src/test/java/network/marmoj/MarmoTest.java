@@ -15,6 +15,7 @@ import network.marmoj.model.data.ERC20;
 import network.marmoj.model.data.ETH;
 import network.marmoj.model.data.ISendEth;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
@@ -34,14 +35,17 @@ public class MarmoTest {
       "0x3a423f1c02a85be8641f67e36d91ae4089766ceb18bd7308c2e845d8e90fa705",
   };
 
+  @Before
+  public void init() {
+    DefaultConf.ROPSTEN.asDefault();
+  }
   @Test
   public void testGenerateIntentIdSendEth() {
 
     ISendEth sendEth = new ETH();
     IntentAction intentAction = sendEth
         .send("0x009ab4de1234c7066197d6ed75743add3576591f", BigInteger.ONE);
-    Config config = DefaultConf.ROPSTEN;
-    Wallet wallet = new Wallet(privs[1], config);
+    Wallet wallet = new Wallet(privs[1], Config.getGlobal());
 
     Intent intent = IntentBuilder.anIntent()
         .withSalt(hexStringToByteArray(
@@ -69,9 +73,7 @@ public class MarmoTest {
         new Address("0x009ab4de1234c7066197d6ed75743add3576591f"),
         new Uint256(4)
     );
-    Config config =  DefaultConf.ROPSTEN;
-
-    Wallet wallet = new Wallet(privs[1], config);
+    Wallet wallet = new Wallet(privs[1], Config.getGlobal());
 
     Intent intent = IntentBuilder.anIntent()
         .withSalt(hexStringToByteArray(
@@ -97,8 +99,7 @@ public class MarmoTest {
     ISendEth sendEth = new ETH();
     IntentAction intentAction = sendEth
         .send("0x008d03067bcb29c5b35de2ee4a2fb88b965edf61", BigInteger.valueOf(2));
-    Config config =  DefaultConf.ROPSTEN;
-    Wallet wallet = new Wallet(privs[1], config);
+    Wallet wallet = new Wallet(privs[1], Config.getGlobal());
 
     Intent intent = IntentBuilder.anIntent()
         .withExpiration(BigInteger.valueOf(1548069482))
@@ -123,8 +124,7 @@ public class MarmoTest {
     ISendEth sendEth = new ETH();
     IntentAction intentAction = sendEth
         .send("0x008d03067bcb29c5b35de2ee4a2fb88b965edf61", BigInteger.valueOf(2));
-    Config config = DefaultConf.ROPSTEN;
-    Wallet wallet = new Wallet(privs[1], config);
+    Wallet wallet = new Wallet(privs[1], Config.getGlobal());
 
     Intent intent = IntentBuilder.anIntent()
         .withExpiration(BigInteger.valueOf(1548069482))

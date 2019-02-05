@@ -5,6 +5,8 @@ import org.web3j.protocol.http.HttpService;
 
 public class Provider {
 
+  private static Provider globalProvider;
+
   private String relayer;
   private Web3j web3j;
 
@@ -16,6 +18,14 @@ public class Provider {
   public Provider(String relayer, String node) {
     this.relayer = relayer;
     this.web3j = Web3j.build(new HttpService(node));
+  }
+
+  public void asDefault() {
+    globalProvider = this;
+  }
+
+  public static Provider getGlobal() {
+    return globalProvider;
   }
 
   public String getRelayer() {
