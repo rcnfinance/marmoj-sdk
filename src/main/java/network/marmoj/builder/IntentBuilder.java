@@ -20,7 +20,7 @@ public final class IntentBuilder {
   private String to;
   private BigInteger value;
   private byte[] data;
-  private BigInteger minGasLimit = BigInteger.valueOf(0);
+  private BigInteger maxGasLimit = BigInteger.valueOf(0);
   private BigInteger maxGasPrice = BigInteger.valueOf(9999999999L);
 
   private IntentBuilder() {
@@ -48,8 +48,8 @@ public final class IntentBuilder {
     return this;
   }
 
-  public IntentBuilder withMinGasLimit(BigInteger minGasLimit) {
-    this.minGasLimit = minGasLimit;
+  public IntentBuilder withMaxGasLimit(BigInteger minGasLimit) {
+    this.maxGasLimit = minGasLimit;
     return this;
   }
 
@@ -68,7 +68,7 @@ public final class IntentBuilder {
       throw new ValidationException("intentAction");
     }
 
-    return new Intent(dependencies, salt, to, expiration, value, data, minGasLimit, maxGasPrice);
+    return new Intent(dependencies, salt, to, expiration, value, data, maxGasLimit, maxGasPrice);
   }
 
 

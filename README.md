@@ -159,7 +159,7 @@ client.post(sign);
     "to": "0x2f45b6fb2f28a73f110400386da31044b2e953d4",
     "value": 0,
     "data": "0x70a082310000000000000000000000007f5eb5bb5cf88cfcee9613368636f458800e62cb",
-    "minGasLimit": 300000,
+    "maxGasLimit": 300000,
     "maxGasPrice": 999999
   },
   "salt": "0x0000000000000000000000000000000000000000000000000000000000000002",
@@ -182,7 +182,7 @@ client.post(sign);
 | signer                | String        | yes       | -             | The address of the signer that sign the intent.              |
 | wallet                | String        | yes       | -             | Contract address or Marmo instance.                      |
 | salt                  | byte[]        | no        | 0x0           | Use to send the same intent many times if needed.                                |
-| minGasLimit           | BigInteger    | no        | 0             | Minimum gas price.                                       |
+| maxGasLimit           | BigInteger    | no        | 0             | Minimum gas price.                                       |
 | maxGasPrice           | BigInteger    | no        | 99999999      | Maximum gas price.                                       |
 | intentAction          | IntentAction  | yes       | 0x0           | IntentAction Example -> network.marmoj.model.data.ERC20. |
 

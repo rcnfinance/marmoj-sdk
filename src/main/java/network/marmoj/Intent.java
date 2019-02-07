@@ -12,19 +12,19 @@ public class Intent {
   private String to;
   private BigInteger value;
   private byte[] data;
-  private BigInteger minGasLimit;
+  private BigInteger maxGasLimit;
   private BigInteger maxGasPrice;
 
   public Intent(List<byte[]> dependencies, byte[] salt, String to, BigInteger expiration,
       BigInteger value,
-      byte[] data, BigInteger minGasLimit, BigInteger maxGasPrice) {
+      byte[] data, BigInteger maxGasLimit, BigInteger maxGasPrice) {
     this.dependencies = dependencies;
     this.salt = salt;
     this.expiration = expiration;
     this.to = to;
     this.value = value;
     this.data = data;
-    this.minGasLimit = minGasLimit;
+    this.maxGasLimit = maxGasLimit;
     this.maxGasPrice = maxGasPrice;
   }
 
@@ -52,8 +52,8 @@ public class Intent {
     return data;
   }
 
-  public BigInteger getMinGasLimit() {
-    return minGasLimit;
+  public BigInteger getMaxGasLimit() {
+    return maxGasLimit;
   }
 
   public BigInteger getMaxGasPrice() {

@@ -39,6 +39,7 @@ public class MarmoTest {
   public void init() {
     DefaultConf.ROPSTEN.asDefault();
   }
+
   @Test
   public void testGenerateIntentIdSendEth() {
 
@@ -51,7 +52,7 @@ public class MarmoTest {
         .withSalt(hexStringToByteArray(
             "0x0000000000000000000000000000000000000000000000000000000000000000"))
         .withExpiration(BigInteger.TEN.pow(24))
-        .withMinGasLimit(BigInteger.ZERO)
+        .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(BigInteger.TEN.pow(32))
         .withIntentAction(intentAction)
         .build();
@@ -79,7 +80,7 @@ public class MarmoTest {
         .withSalt(hexStringToByteArray(
             "0x0000000000000000000000000000000000000000000000000000000000000000"))
         .withExpiration(BigInteger.valueOf(1548030494))
-        .withMinGasLimit(BigInteger.ZERO)
+        .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(BigInteger.TEN.pow(32))
         .withIntentAction(intentAction)
         .build();

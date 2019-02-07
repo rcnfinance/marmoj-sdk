@@ -47,7 +47,7 @@ public final class SignedIntentBuilder {
     String to = sanitizePrefix(this.intent.getTo());
     String value = toHexStringNoPrefixZeroPadded(this.intent.getValue(), SIZE_64);
     String data = keccak256(this.intent.getData());
-    String minGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMinGasLimit(), SIZE_64);
+    String minGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMaxGasLimit(), SIZE_64);
     String maxGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMaxGasPrice(), SIZE_64);
     String salt = sanitizePrefix(Numeric.toHexString(this.intent.getSalt()));
     String expiration = toHexStringNoPrefixZeroPadded(this.intent.getExpiration(), SIZE_64);

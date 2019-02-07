@@ -14,7 +14,7 @@ public class IntentTxRequest {
 
   public IntentTxRequest(Intent intentTx) {
     this.data = Numeric.toHexString(intentTx.getData());
-    this.minGasLimit = intentTx.getMinGasLimit();
+    this.minGasLimit = intentTx.getMaxGasLimit();
     this.maxGasPrice = intentTx.getMaxGasPrice();
     this.to = intentTx.getTo();
     this.value = intentTx.getValue();
