@@ -5,7 +5,6 @@ import static org.web3j.crypto.Sign.SignatureData;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import network.marmoj.client.RelayClient;
 import network.marmoj.client.response.IntentResponse;
-import network.marmoj.config.DefaultProvider;
 import network.marmoj.config.Provider;
 import network.marmoj.exception.ValidationException;
 import network.marmoj.model.IntentStatus;
