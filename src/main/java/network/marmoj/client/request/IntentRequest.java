@@ -22,7 +22,7 @@ public class IntentRequest {
     Intent intent = signedIntent.getIntent();
     List<String> dependencies = intent.getDependencies()
         .stream()
-        .map(it -> Numeric.toHexString(it))
+        .map(it -> Numeric.toHexString(it.getId()))
         .collect(Collectors.toList());
     this.dependencies = dependencies;
     this.salt = Numeric.toHexString(intent.getSalt());

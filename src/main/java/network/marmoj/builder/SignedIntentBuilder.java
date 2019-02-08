@@ -1,19 +1,24 @@
 package network.marmoj.builder;
 
-import static network.marmoj.utils.MarmoUtils.PREFIX;
 import static network.marmoj.utils.MarmoUtils.keccak256;
-import static network.marmoj.utils.MarmoUtils.sanitizePrefix;
-import static org.web3j.utils.Numeric.toHexStringNoPrefixZeroPadded;
 
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+import network.marmoj.model.Dependency;
+import network.marmoj.model.IntentDependency;
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.datatypes.Address;
+
 import network.marmoj.Intent;
 import network.marmoj.SignedIntent;
 import network.marmoj.model.Wallet;
+import org.web3j.abi.TypeEncoder;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.generated.Bytes32;
+import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.utils.Numeric;
 
 public final class SignedIntentBuilder {
-
-  public static final int SIZE_64 = 64;
 
   private Intent intent;
   private Wallet wallet;
@@ -43,38 +48,57 @@ public final class SignedIntentBuilder {
 
   private byte[] buildId() {
     String wallet = this.wallet.getAddress();
-    String dependencies = keccak256(sanitizeDependencies(this.intent.getDependencies()));
-    String to = sanitizePrefix(this.intent.getTo());
-    String value = toHexStringNoPrefixZeroPadded(this.intent.getValue(), SIZE_64);
-    String data = keccak256(this.intent.getData());
-    String minGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMaxGasLimit(), SIZE_64);
-    String maxGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMaxGasPrice(), SIZE_64);
-    String salt = sanitizePrefix(Numeric.toHexString(this.intent.getSalt()));
-    String expiration = toHexStringNoPrefixZeroPadded(this.intent.getExpiration(), SIZE_64);
+    String implementation = this.wallet.getConfig().getImplementation();
 
     StringBuilder encodePackedBuilder = new StringBuilder()
         .append(wallet)
-        .append(dependencies)
-        .append(to)
-        .append(value)
-        .append(data)
-        .append(minGasLimit)
-        .append(maxGasLimit)
-        .append(salt)
-        .append(expiration);
+        .append(implementation)
+        .append(keccak256(this.buildImplementationCall()));
 
     return Numeric.hexStringToByteArray(keccak256(encodePackedBuilder.toString()));
   }
 
-  private String sanitizeDependencies(List<byte[]> dependencies) {
-    StringBuilder dependenciesBuiler = new StringBuilder();
-    for (byte[] dependency : dependencies) {
-      dependenciesBuiler.append(sanitizePrefix(Numeric.toHexString(dependency)));
-    }
-    String result = dependenciesBuiler.toString();
-    if (!result.isEmpty()) {
-      return PREFIX + result;
-    }
-    return result;
+  private String buildImplementationCall() {
+
+    StringBuilder builder = new StringBuilder();
+    builder.append(TypeEncoder.encode(this.buildDependencyCall()));
+    builder.append(TypeEncoder.encode(new Address(this.intent.getTo())));
+    builder.append(TypeEncoder.encode(new Uint256(this.intent.getValue())));
+    builder.append(TypeEncoder.encode(new Bytes32(this.intent.getData())));
+    builder.append(TypeEncoder.encode(new Uint256(this.intent.getMaxGasLimit())));
+    builder.append(TypeEncoder.encode(new Uint256(this.intent.getMaxGasPrice())));
+    builder.append(TypeEncoder.encode(new Uint256(this.intent.getExpiration())));
+    builder.append(TypeEncoder.encode(new Bytes32(this.intent.getSalt())));
+    return builder.toString();
   }
+
+  private Bytes32 buildDependencyCall() {
+    final int depsCount = this.intent.getDependencies().size();
+    if (depsCount == 0) {
+      // No dependencies
+      return new Bytes32(Numeric.hexStringToByteArray("0x"));
+    }
+
+    if (depsCount == 1) {
+      // Single dependency, call wallet directly
+      Dependency dependency = this.intent.getDependencies().iterator().next();
+      Function function = new Function(
+          "relayedAt",
+          Arrays.asList(new Bytes32(dependency.getId())),
+          Collections.emptyList()
+      );
+      String call = FunctionEncoder.encode(function);
+
+      String format = String
+          .format("0x%s%s", dependency.getAddress().replace("0x", ""), call
+              .replace("0x", ""));
+      return new Bytes32(Numeric.hexStringToByteArray(format));
+    }
+
+    // Multiple dependencies, using DepsUtils contract
+    // TODO: MAKE IMPLEMENTATION
+    return null;
+  }
+
+
 }

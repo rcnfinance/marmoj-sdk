@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import network.marmoj.Intent;
 import network.marmoj.exception.ValidationException;
+import network.marmoj.model.Dependency;
 import network.marmoj.model.IntentAction;
 import org.web3j.utils.Numeric;
 
@@ -12,7 +13,7 @@ public final class IntentBuilder {
 
   public static final int SIZE_32 = 32;
 
-  private List<byte[]> dependencies = new ArrayList<>();
+  private List<Dependency> dependencies = new ArrayList<>();
   private BigInteger expiration = BigInteger.valueOf(15);
   private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
 
@@ -43,7 +44,7 @@ public final class IntentBuilder {
     return this;
   }
 
-  public IntentBuilder withDependencies(List<byte[]> dependencies) {
+  public IntentBuilder withDependencies(List<Dependency> dependencies) {
     this.dependencies.addAll(dependencies);
     return this;
   }

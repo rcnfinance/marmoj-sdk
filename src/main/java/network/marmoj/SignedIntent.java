@@ -7,10 +7,11 @@ import network.marmoj.client.RelayClient;
 import network.marmoj.client.response.IntentResponse;
 import network.marmoj.config.Provider;
 import network.marmoj.exception.ValidationException;
+import network.marmoj.model.Dependency;
 import network.marmoj.model.IntentStatus;
 import network.marmoj.model.Wallet;
 
-public class SignedIntent {
+public class SignedIntent implements Dependency {
 
   private byte[] id;
   private Intent intent;
@@ -24,6 +25,7 @@ public class SignedIntent {
     this.wallet = wallet;
   }
 
+  @Override
   public byte[] getId() {
     return id;
   }
@@ -38,6 +40,11 @@ public class SignedIntent {
 
   public Wallet getWallet() {
     return wallet;
+  }
+
+  @Override
+  public String getAddress() {
+    return this.wallet.getAddress();
   }
 
   public boolean relay() {
@@ -61,5 +68,6 @@ public class SignedIntent {
     //TODO: MAKE IMPLEMENTATION
     return null;
   }
+
 
 }

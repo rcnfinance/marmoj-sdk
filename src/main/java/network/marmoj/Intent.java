@@ -2,10 +2,11 @@ package network.marmoj;
 
 import java.math.BigInteger;
 import java.util.List;
+import network.marmoj.model.Dependency;
 
 public class Intent {
 
-  List<byte[]> dependencies;
+  List<Dependency> dependencies;
   private byte[] salt;
   private BigInteger expiration;
   /* For Transactions */
@@ -15,7 +16,7 @@ public class Intent {
   private BigInteger maxGasLimit;
   private BigInteger maxGasPrice;
 
-  public Intent(List<byte[]> dependencies, byte[] salt, String to, BigInteger expiration,
+  public Intent(List<Dependency> dependencies, byte[] salt, String to, BigInteger expiration,
       BigInteger value,
       byte[] data, BigInteger maxGasLimit, BigInteger maxGasPrice) {
     this.dependencies = dependencies;
@@ -28,7 +29,7 @@ public class Intent {
     this.maxGasPrice = maxGasPrice;
   }
 
-  public List<byte[]> getDependencies() {
+  public List<Dependency> getDependencies() {
     return dependencies;
   }
 

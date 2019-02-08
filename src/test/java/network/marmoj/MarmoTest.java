@@ -8,6 +8,7 @@ import network.marmoj.builder.IntentBuilder;
 import network.marmoj.builder.SignedIntentBuilder;
 import network.marmoj.config.Config;
 import network.marmoj.model.IntentAction;
+import network.marmoj.model.IntentDependency;
 import network.marmoj.model.Wallet;
 import network.marmoj.model.data.ERC20;
 import network.marmoj.model.data.ETH;
@@ -114,7 +115,7 @@ public class MarmoTest {
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(new BigInteger("9999999999"))
         .withSalt(Numeric.hexStringToByteArray("0x111151"))
-        .withDependencies(Arrays.asList(dependencySignedIntent.getId()))
+        .withDependencies(Arrays.asList(new IntentDependency(dependencySignedIntent.getId(), wallet.getAddress())))
         .build();
 
     SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
