@@ -12,13 +12,13 @@ public class Intent {
   /* For Transactions */
   private String to;
   private BigInteger value;
-  private byte[] data;
+  private String data;
   private BigInteger maxGasLimit;
   private BigInteger maxGasPrice;
 
   public Intent(List<Dependency> dependencies, byte[] salt, String to, BigInteger expiration,
       BigInteger value,
-      byte[] data, BigInteger maxGasLimit, BigInteger maxGasPrice) {
+      String data, BigInteger maxGasLimit, BigInteger maxGasPrice) {
     this.dependencies = dependencies;
     this.salt = salt;
     this.expiration = expiration;
@@ -49,7 +49,7 @@ public class Intent {
     return value;
   }
 
-  public byte[] getData() {
+  public String getData() {
     return data;
   }
 

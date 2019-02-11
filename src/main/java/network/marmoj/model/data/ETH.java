@@ -7,12 +7,12 @@ public class ETH implements ISendEth {
 
   @Override
   public IntentAction send(String to, BigInteger value) {
-    return new IntentAction(to, "0x", value);
+    return new IntentAction(to, "0x0", value);
   }
 
   @Override
   public IntentAction send(String to, String value) {
-    return send(to, BigInteger.valueOf(Long.valueOf(value)));
+    return this.send(to, BigInteger.valueOf(Long.valueOf(value)));
   }
 
 }

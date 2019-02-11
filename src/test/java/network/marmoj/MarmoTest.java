@@ -51,7 +51,7 @@ public class MarmoTest {
     IntentAction intentAction = this.erc20.transfer(new Address("0x009ab4de1234c7066197d6ed75743add3576591f"), new Uint256(4));
     Intent intent = IntentBuilder.anIntent()
         .withIntentAction(intentAction)
-        .withExpiration(BigInteger.valueOf(1549218987))
+        .withExpiration(BigInteger.TEN.pow(24))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(BigInteger.TEN.pow(32))
         .build();
@@ -114,7 +114,7 @@ public class MarmoTest {
         .withExpiration(BigInteger.TEN.pow(36))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(new BigInteger("9999999999"))
-        .withSalt(Numeric.hexStringToByteArray("0x111151"))
+        .withSalt(Numeric.hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000111151"))
         .withDependencies(Arrays.asList(new IntentDependency(dependencySignedIntent.getId(), wallet.getAddress())))
         .build();
 

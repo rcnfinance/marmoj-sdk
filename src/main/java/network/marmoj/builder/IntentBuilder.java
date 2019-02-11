@@ -20,7 +20,7 @@ public final class IntentBuilder {
   /* For transactions */
   private String to;
   private BigInteger value;
-  private byte[] data;
+  private String data;
   private BigInteger maxGasLimit = BigInteger.valueOf(0);
   private BigInteger maxGasPrice = BigInteger.valueOf(9999999999L);
 
@@ -35,7 +35,7 @@ public final class IntentBuilder {
   public IntentBuilder withIntentAction(IntentAction intentAction) {
     this.to = intentAction.getTo();
     this.value = intentAction.getValue();
-    this.data = Numeric.hexStringToByteArray(intentAction.getData());
+    this.data = intentAction.getData();
     return this;
   }
 
