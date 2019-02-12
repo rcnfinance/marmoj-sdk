@@ -114,7 +114,7 @@ public class MarmoTest {
         .withExpiration(BigInteger.TEN.pow(36))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(new BigInteger("9999999999"))
-        .withSalt(Numeric.hexStringToByteArray("0x0000000000000000000000000000000000000000000000000000000000111151"))
+        .withSalt(Numeric.hexStringToByteArray("0x111151"))
         .withDependencies(Arrays.asList(new IntentDependency(dependencySignedIntent.getId(), wallet.getAddress())))
         .build();
 
