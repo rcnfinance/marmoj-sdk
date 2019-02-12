@@ -1,29 +1,30 @@
 package network.marmoj.builder;
 
-import static network.marmoj.utils.MarmoUtils.*;
+import static java.text.MessageFormat.format;
+import static network.marmoj.utils.MarmoUtils.PREFIX;
 import static network.marmoj.utils.MarmoUtils.keccak256;
 import static network.marmoj.utils.MarmoUtils.sanitizePrefix;
-import static org.web3j.abi.TypeEncoder.*;
+import static org.web3j.abi.TypeEncoder.encode;
 import static org.web3j.utils.Numeric.hexStringToByteArray;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.stream.Collectors;
 import network.marmoj.Intent;
 import network.marmoj.SignedIntent;
 import network.marmoj.model.Dependency;
 import network.marmoj.model.Wallet;
-import network.marmoj.utils.MarmoUtils;
 import org.web3j.abi.FunctionEncoder;
-import org.web3j.abi.TypeEncoder;
 import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.DynamicArray;
 import org.web3j.abi.datatypes.DynamicBytes;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.utils.Numeric;
 
 public final class SignedIntentBuilder {
 
+  public static final String OUTPUT_FORMAT = "0x{0}{1}";
   private Intent intent;
   private Wallet wallet;
 
@@ -78,13 +79,10 @@ public final class SignedIntentBuilder {
 
   private String buildDependencyCall() {
     final int depsCount = this.intent.getDependencies().size();
-    if (depsCount == 0) {
-      // No dependencies
+    if (depsCount == 0) { // No dependencies
       return "0x0";
     }
-
-    if (depsCount == 1) {
-      // Single dependency, call wallet directly
+    if (depsCount == 1) { // Single dependency, call wallet directly
       Dependency dependency = this.intent.getDependencies().iterator().next();
       Function function = new Function(
           "relayedAt",
@@ -92,13 +90,24 @@ public final class SignedIntentBuilder {
           Collections.emptyList()
       );
       String call = FunctionEncoder.encode(function);
-      return String.format("0x%s%s", sanitizePrefix(dependency.getAddress()), sanitizePrefix(call));
-    } else {
-      // Multiple dependencies, using DepsUtils contract
-      // TODO: MAKE IMPLEMENTATION
-      return null;
+      return format("0x{0}{1}", sanitizePrefix(dependency.getAddress()), sanitizePrefix(call));
+    } else { // Multiple dependencies, using DepsUtils contract
+      Function function = new Function(
+          "multipleDeps",
+          Arrays.asList(
+              new DynamicArray<>(this.intent.getDependencies().stream()
+                  .map(dependency -> new Address(dependency.getAddress())).collect(
+                      Collectors.toList())),
+              new DynamicArray<>(this.intent.getDependencies().stream()
+                  .map(dependency -> new Bytes32(dependency.getId())).collect(
+                      Collectors.toList()))
+          ),
+          Collections.emptyList()
+      );
+      String call = FunctionEncoder.encode(function);
+      return format(OUTPUT_FORMAT, sanitizePrefix(this.wallet.getConfig().getDepsUtils()),
+              sanitizePrefix(call));
     }
   }
-
 
 }
