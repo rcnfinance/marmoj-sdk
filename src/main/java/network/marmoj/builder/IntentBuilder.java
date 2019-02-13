@@ -7,7 +7,7 @@ import network.marmoj.Intent;
 import network.marmoj.exception.ValidationException;
 import network.marmoj.model.Dependency;
 import network.marmoj.model.IntentAction;
-import org.web3j.utils.Numeric;
+import network.marmoj.utils.MarmoUtils;
 
 public final class IntentBuilder {
 
@@ -15,7 +15,7 @@ public final class IntentBuilder {
 
   private List<Dependency> dependencies = new ArrayList<>();
   private BigInteger expiration = BigInteger.valueOf(15);
-  private byte[] salt = Numeric.toBytesPadded(BigInteger.ZERO, SIZE_32);
+  private String salt = MarmoUtils.PREFIX;
 
   /* For transactions */
   private String to;
@@ -59,7 +59,7 @@ public final class IntentBuilder {
     return this;
   }
 
-  public IntentBuilder withSalt(byte[] salt) {
+  public IntentBuilder withSalt(String salt) {
     this.salt = salt;
     return this;
   }

@@ -65,22 +65,28 @@ public final class SignedIntentBuilder {
 
   private String buildImplementationCall() {
     StringBuilder encode = new StringBuilder(PREFIX);
-    encode.append(encode(new DynamicBytes(hexStringToByteArray(this.buildDependencyCall()))));
-    encode.append(encode(new Address(this.intent.getTo())));
-    encode.append(encode(new Uint256(this.intent.getValue())));
-    encode.append(encode(new DynamicBytes(hexStringToByteArray(this.intent.getData()))));
-    encode.append(encode(new Uint256(this.intent.getMaxGasPrice())));
-    encode.append(encode(new Uint256(this.intent.getMaxGasLimit())));
-    encode.append(encode(new Uint256(this.intent.getExpiration())));
-    encode.append(encode(new DynamicBytes(this.intent.getSalt())));
-    System.out.print(encode.toString());
+    encode.append(encode(this.sanitizeBytes(this.resolveDependencyCall())))
+        .append(encode(new Address(this.intent.getTo())))
+        .append(encode(new Uint256(this.intent.getValue())))
+        .append(encode(this.sanitizeBytes(this.intent.getData())))
+        .append(encode(new Uint256(this.intent.getMaxGasPrice())))
+        .append(encode(new Uint256(this.intent.getMaxGasLimit())))
+        .append(encode(new Uint256(this.intent.getExpiration())))
+        .append(encode(this.sanitizeBytes(this.intent.getSalt())));
     return encode.toString();
   }
 
-  private String buildDependencyCall() {
+  private DynamicBytes sanitizeBytes(String bytes) {
+    if (PREFIX.equals(bytes)) {
+      return DynamicBytes.DEFAULT;
+    }
+    return new DynamicBytes(hexStringToByteArray(bytes));
+  }
+
+  private String resolveDependencyCall() {
     final int depsCount = this.intent.getDependencies().size();
     if (depsCount == 0) { // No dependencies
-      return "0x0";
+      return PREFIX;
     }
     if (depsCount == 1) { // Single dependency, call wallet directly
       Dependency dependency = this.intent.getDependencies().iterator().next();
@@ -106,7 +112,7 @@ public final class SignedIntentBuilder {
       );
       String call = FunctionEncoder.encode(function);
       return format(OUTPUT_FORMAT, sanitizePrefix(this.wallet.getConfig().getDepsUtils()),
-              sanitizePrefix(call));
+          sanitizePrefix(call));
     }
   }
 

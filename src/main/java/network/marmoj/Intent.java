@@ -7,7 +7,7 @@ import network.marmoj.model.Dependency;
 public class Intent {
 
   List<Dependency> dependencies;
-  private byte[] salt;
+  private String salt;
   private BigInteger expiration;
   /* For Transactions */
   private String to;
@@ -16,7 +16,7 @@ public class Intent {
   private BigInteger maxGasLimit;
   private BigInteger maxGasPrice;
 
-  public Intent(List<Dependency> dependencies, byte[] salt, String to, BigInteger expiration,
+  public Intent(List<Dependency> dependencies, String salt, String to, BigInteger expiration,
       BigInteger value,
       String data, BigInteger maxGasLimit, BigInteger maxGasPrice) {
     this.dependencies = dependencies;
@@ -37,7 +37,7 @@ public class Intent {
     return expiration;
   }
 
-  public byte[] getSalt() {
+  public String getSalt() {
     return salt;
   }
 

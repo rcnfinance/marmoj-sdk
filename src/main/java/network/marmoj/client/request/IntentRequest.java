@@ -25,7 +25,7 @@ public class IntentRequest {
         .map(it -> Numeric.toHexString(it.getId()))
         .collect(Collectors.toList());
     this.dependencies = dependencies;
-    this.salt = Numeric.toHexString(intent.getSalt());
+    this.salt = intent.getSalt();
     this.expiration = intent.getExpiration();
     this.wallet = signedIntent.getWallet().getAddress();
     this.signer = signedIntent.getWallet().getSigner();

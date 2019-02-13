@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.generated.Uint256;
-import org.web3j.utils.Numeric;
 
 public class MarmoTest {
 
@@ -77,7 +76,7 @@ public class MarmoTest {
         .withExpiration(BigInteger.TEN.pow(24))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(BigInteger.TEN.pow(32))
-        .withSalt(Numeric.hexStringToByteArray("0x111151"))
+        .withSalt("0x111151")
         .build();
 
     SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
@@ -114,7 +113,7 @@ public class MarmoTest {
         .withExpiration(BigInteger.TEN.pow(36))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(new BigInteger("9999999999"))
-        .withSalt(Numeric.hexStringToByteArray("0x111151"))
+        .withSalt("0x111151")
         .withDependencies(Arrays.asList(new IntentDependency(dependencySignedIntent.getId(), wallet.getAddress())))
         .build();
 
