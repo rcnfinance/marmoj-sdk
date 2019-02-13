@@ -14,6 +14,7 @@ import network.marmoj.Intent;
 import network.marmoj.SignedIntent;
 import network.marmoj.model.Dependency;
 import network.marmoj.model.Wallet;
+import network.marmoj.utils.MarmoUtils;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.datatypes.Address;
 import org.web3j.abi.datatypes.DynamicArray;
@@ -72,8 +73,15 @@ public final class SignedIntentBuilder {
         .append(encode(new Uint256(this.intent.getMaxGasPrice())))
         .append(encode(new Uint256(this.intent.getMaxGasLimit())))
         .append(encode(new Uint256(this.intent.getExpiration())))
-        .append(encode(this.sanitizeBytes(this.intent.getSalt())));
+        .append(encode(sanitizeSalt(this.intent.getSalt())));
     return encode.toString();
+  }
+
+  private Bytes32 sanitizeSalt(String salt) {
+    if (PREFIX.equals(salt)) {
+      return Bytes32.DEFAULT;
+    }
+    return new Bytes32(hexStringToByteArray(salt));
   }
 
   private DynamicBytes sanitizeBytes(String bytes) {

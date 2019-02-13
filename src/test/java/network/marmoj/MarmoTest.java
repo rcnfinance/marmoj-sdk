@@ -61,7 +61,7 @@ public class MarmoTest {
         .build();
 
     Assert.assertEquals(toHexString(signedIntent.getId()),
-        "0x4c8965758ff35849a98a26d322198d65467cbf1205311377ec8d3639217e654b");
+        "0x46ba292cc630f19a56e0f531f2ec2427180d13936f2c8e7ff899af8331543ff7");
 
   }
 
@@ -76,7 +76,7 @@ public class MarmoTest {
         .withExpiration(BigInteger.TEN.pow(24))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(BigInteger.TEN.pow(32))
-        .withSalt("0x111151")
+        .withSalt("0x1111510000000000000000000000000000000000000000000000000000000000")
         .build();
 
     SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
@@ -85,7 +85,7 @@ public class MarmoTest {
         .build();
 
     Assert.assertEquals(toHexString(signedIntent.getId()),
-        "0xe5e4e756b52ca2697f56a13bd4039d09885c56e051c54fbeff40076851d8ab76");
+        "0xf3d5f434a4267ea8cb3fc0b1de85a562933c415610bc33e09f373dab2f1c534f");
   }
 
   @Test
@@ -113,7 +113,7 @@ public class MarmoTest {
         .withExpiration(BigInteger.TEN.pow(36))
         .withMaxGasLimit(BigInteger.ZERO)
         .withMaxGasPrice(new BigInteger("9999999999"))
-        .withSalt("0x111151")
+        .withSalt("0x1111510000000000000000000000000000000000000000000000000000000000")
         .withDependencies(Arrays.asList(new IntentDependency(dependencySignedIntent.getId(), wallet.getAddress())))
         .build();
 
@@ -123,7 +123,7 @@ public class MarmoTest {
         .build();
 
     Assert.assertEquals(toHexString(signedIntent.getId()),
-        "0x69f9e0539c6d1b349ce4c0c899d3a76f1118dc207e724d196bf9fb1c4fc957f3");
+        "0x60f7d6a24f8936510a3d019c83f59fa5bfcc6372a1bfc4d25ab82f06b073d885");
   }
 
 
