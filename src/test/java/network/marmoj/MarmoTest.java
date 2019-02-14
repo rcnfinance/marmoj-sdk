@@ -14,6 +14,8 @@ import network.marmoj.model.data.ERC20;
 import network.marmoj.model.data.ETH;
 import network.marmoj.model.data.IERC20;
 import network.marmoj.model.data.ISendEth;
+import network.marmoj.model.data.IWEth;
+import network.marmoj.model.data.WEth;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,7 @@ import org.web3j.abi.datatypes.generated.Uint256;
 public class MarmoTest {
 
   private IERC20 erc20;
+  private IWEth weth;
   private Wallet wallet;
   private Config config;
 
@@ -40,6 +43,7 @@ public class MarmoTest {
     String tokenContractAddress = "0x6Eb29e4Dffcbe467b755DCBa6fDdfA91F6f747e1";
     this.wallet = new Wallet("0x5ef1dbf8ef171b33cd72a5d11b713442dcd2c70695753a0f6df9b38136e08d54", this.config);
     this.erc20 = new ERC20(tokenContractAddress);
+    this.weth = new WEth(tokenContractAddress);
 
   }
 
@@ -62,6 +66,28 @@ public class MarmoTest {
 
     Assert.assertEquals(toHexString(signedIntent.getId()),
         "0x46ba292cc630f19a56e0f531f2ec2427180d13936f2c8e7ff899af8331543ff7");
+
+  }
+
+  @Test
+  public void testTransferWeth() {
+
+
+    IntentAction intentAction = this.weth.deposit(BigInteger.ONE);
+    Intent intent = IntentBuilder.anIntent()
+        .withIntentAction(intentAction)
+        .withExpiration(BigInteger.TEN.pow(24))
+        .withMaxGasLimit(BigInteger.ZERO)
+        .withMaxGasPrice(BigInteger.TEN.pow(32))
+        .build();
+
+    SignedIntent signedIntent = SignedIntentBuilder.aSignedIntent()
+        .withIntent(intent)
+        .withWallet(wallet)
+        .build();
+
+    Assert.assertEquals(toHexString(signedIntent.getId()),
+        "0x58e077af6da5fa6709c5d9852b1369e23ba68a3a9b6bb44891c7aba8040fefc1");
 
   }
 
