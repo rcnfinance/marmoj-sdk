@@ -81,8 +81,12 @@ public class ERC20 implements IERC20 {
   }
 
   private IntentAction getIntentAction(Function function) {
+    return getIntentAction(function, BigInteger.ZERO);
+  }
+
+  protected IntentAction getIntentAction(Function function, BigInteger value) {
     return new IntentAction(this.contractAddress, FunctionEncoder.encode(function),
-        BigInteger.ZERO);
+        value);
   }
 
 }
