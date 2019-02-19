@@ -60,7 +60,7 @@ signing {
     sign configurations.archives
 }
 
-publishing {
+/*publishing {
     publications {
         mavenJava(MavenPublication) {
             customizePom(pom)
@@ -106,12 +106,12 @@ publishing {
         maven {
             url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
             credentials {
-                username sonatypeUsername
+                username sonatypeUssername
                 password sonatypePassword
             }
         }
     }
-}
+}*/
 
 def customizePom(pom) {
     pom.withXml {
@@ -158,7 +158,7 @@ def customizePom(pom) {
     }
 }
 
-model {
+/*model {
     tasks.generatePomFileForMavenJavaPublication {
         destination = file("$buildDir/generated-pom.xml")
     }
@@ -168,4 +168,4 @@ model {
     tasks.publishMavenJavaPublicationToMavenRepository {
         dependsOn project.tasks.signArchives
     }
-}
+}*/

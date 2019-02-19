@@ -8,7 +8,6 @@ public class MarmoUtils {
 
   public static final int SIZE_PREFIX = 2;
   public static final String PREFIX = "0x";
-
   public static String keccak256(String data) {
     return keccak256(Numeric.hexStringToByteArray(data));
   }
@@ -21,6 +20,10 @@ public class MarmoUtils {
 
   public static String sanitizePrefix(String data) {
     return data.substring(SIZE_PREFIX);
+  }
+
+  public static byte[] sanitizePrefix(byte[] salt) {
+    return Numeric.hexStringToByteArray(sanitizePrefix(Numeric.toHexString(salt)));
   }
 
   public static String toHexStringZeroPadded(String value) {

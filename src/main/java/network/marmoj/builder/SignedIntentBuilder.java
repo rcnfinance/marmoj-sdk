@@ -1,20 +1,31 @@
 package network.marmoj.builder;
 
+import static java.text.MessageFormat.format;
 import static network.marmoj.utils.MarmoUtils.PREFIX;
 import static network.marmoj.utils.MarmoUtils.keccak256;
 import static network.marmoj.utils.MarmoUtils.sanitizePrefix;
-import static org.web3j.utils.Numeric.toHexStringNoPrefixZeroPadded;
+import static org.web3j.abi.TypeEncoder.encode;
+import static org.web3j.utils.Numeric.hexStringToByteArray;
 
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.Collectors;
 import network.marmoj.Intent;
 import network.marmoj.SignedIntent;
+import network.marmoj.model.Dependency;
 import network.marmoj.model.Wallet;
-import org.web3j.utils.Numeric;
+import network.marmoj.utils.MarmoUtils;
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.datatypes.Address;
+import org.web3j.abi.datatypes.DynamicArray;
+import org.web3j.abi.datatypes.DynamicBytes;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.generated.Bytes32;
+import org.web3j.abi.datatypes.generated.Uint256;
 
 public final class SignedIntentBuilder {
 
-  public static final int SIZE_64 = 64;
-
+  public static final String OUTPUT_FORMAT = "0x{0}{1}";
   private Intent intent;
   private Wallet wallet;
 
@@ -43,38 +54,74 @@ public final class SignedIntentBuilder {
 
   private byte[] buildId() {
     String wallet = this.wallet.getAddress();
-    String dependencies = keccak256(sanitizeDependencies(this.intent.getDependencies()));
-    String to = sanitizePrefix(this.intent.getTo());
-    String value = toHexStringNoPrefixZeroPadded(this.intent.getValue(), SIZE_64);
-    String data = keccak256(this.intent.getData());
-    String minGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMaxGasLimit(), SIZE_64);
-    String maxGasLimit = toHexStringNoPrefixZeroPadded(this.intent.getMaxGasPrice(), SIZE_64);
-    String salt = sanitizePrefix(Numeric.toHexString(this.intent.getSalt()));
-    String expiration = toHexStringNoPrefixZeroPadded(this.intent.getExpiration(), SIZE_64);
+    String implementation = this.wallet.getConfig().getImplementation();
 
     StringBuilder encodePackedBuilder = new StringBuilder()
-        .append(wallet)
-        .append(dependencies)
-        .append(to)
-        .append(value)
-        .append(data)
-        .append(minGasLimit)
-        .append(maxGasLimit)
-        .append(salt)
-        .append(expiration);
+        .append(new Address(wallet))
+        .append(encode(new Address(implementation)))
+        .append(keccak256(this.buildImplementationCall()));
 
-    return Numeric.hexStringToByteArray(keccak256(encodePackedBuilder.toString()));
+    return hexStringToByteArray(keccak256(encodePackedBuilder.toString()));
   }
 
-  private String sanitizeDependencies(List<byte[]> dependencies) {
-    StringBuilder dependenciesBuiler = new StringBuilder();
-    for (byte[] dependency : dependencies) {
-      dependenciesBuiler.append(sanitizePrefix(Numeric.toHexString(dependency)));
-    }
-    String result = dependenciesBuiler.toString();
-    if (!result.isEmpty()) {
-      return PREFIX + result;
-    }
-    return result;
+  private String buildImplementationCall() {
+    StringBuilder encode = new StringBuilder(PREFIX);
+    encode.append(encode(this.sanitizeBytes(this.resolveDependencyCall())))
+        .append(encode(new Address(this.intent.getTo())))
+        .append(encode(new Uint256(this.intent.getValue())))
+        .append(encode(this.sanitizeBytes(this.intent.getData())))
+        .append(encode(new Uint256(this.intent.getMaxGasPrice())))
+        .append(encode(new Uint256(this.intent.getMaxGasLimit())))
+        .append(encode(new Uint256(this.intent.getExpiration())))
+        .append(encode(sanitizeSalt(this.intent.getSalt())));
+    return encode.toString();
   }
+
+  private Bytes32 sanitizeSalt(String salt) {
+    if (PREFIX.equals(salt)) {
+      return Bytes32.DEFAULT;
+    }
+    return new Bytes32(hexStringToByteArray(salt));
+  }
+
+  private DynamicBytes sanitizeBytes(String bytes) {
+    if (PREFIX.equals(bytes)) {
+      return DynamicBytes.DEFAULT;
+    }
+    return new DynamicBytes(hexStringToByteArray(bytes));
+  }
+
+  private String resolveDependencyCall() {
+    final int depsCount = this.intent.getDependencies().size();
+    if (depsCount == 0) { // No dependencies
+      return PREFIX;
+    }
+    if (depsCount == 1) { // Single dependency, call wallet directly
+      Dependency dependency = this.intent.getDependencies().iterator().next();
+      Function function = new Function(
+          "relayedAt",
+          Arrays.asList(new Bytes32(dependency.getId())),
+          Collections.emptyList()
+      );
+      String call = FunctionEncoder.encode(function);
+      return format("0x{0}{1}", sanitizePrefix(dependency.getAddress()), sanitizePrefix(call));
+    } else { // Multiple dependencies, using DepsUtils contract
+      Function function = new Function(
+          "multipleDeps",
+          Arrays.asList(
+              new DynamicArray<>(this.intent.getDependencies().stream()
+                  .map(dependency -> new Address(dependency.getAddress())).collect(
+                      Collectors.toList())),
+              new DynamicArray<>(this.intent.getDependencies().stream()
+                  .map(dependency -> new Bytes32(dependency.getId())).collect(
+                      Collectors.toList()))
+          ),
+          Collections.emptyList()
+      );
+      String call = FunctionEncoder.encode(function);
+      return format(OUTPUT_FORMAT, sanitizePrefix(this.wallet.getConfig().getDepsUtils()),
+          sanitizePrefix(call));
+    }
+  }
+
 }
