@@ -1,4 +1,4 @@
-package network.marmoj.model.data;
+package network.marmoj.model.data.interfaces;
 
 import java.math.BigInteger;
 import network.marmoj.model.IntentAction;

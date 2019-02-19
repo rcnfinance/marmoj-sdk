@@ -1,17 +1,24 @@
 package network.marmoj.model;
 
 import java.math.BigInteger;
+import network.marmoj.model.data.domain.Function;
 
 public class IntentAction {
 
-  public String to;
-  public String data;
-  public BigInteger value;
+  private String to;
+  private String data = "0x0";
+  private BigInteger value;
+  private Function parent;
 
-  public IntentAction(String to, String data, BigInteger value) {
+  public IntentAction(String to, BigInteger value) {
     this.to = to;
-    this.data = data;
     this.value = value;
+  }
+
+  public IntentAction(String to, String data, BigInteger value, Function parent) {
+    this(to, value);
+    this.data = data;
+    this.parent = parent;
   }
 
   public String getTo() {
@@ -36,5 +43,13 @@ public class IntentAction {
 
   public void setValue(BigInteger value) {
     this.value = value;
+  }
+
+  public Function getParent() {
+    return parent;
+  }
+
+  public void setParent(Function parent) {
+    this.parent = parent;
   }
 }
