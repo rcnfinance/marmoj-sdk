@@ -3,6 +3,7 @@ package network.marmoj.model.data;
 import java.util.Arrays;
 import network.marmoj.model.IntentAction;
 import network.marmoj.model.data.domain.Function;
+import network.marmoj.model.data.domain.ViewFunction;
 import network.marmoj.model.data.interfaces.IERC20;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -26,7 +27,7 @@ public class ERC20 extends Contract implements IERC20 {
 
   @Override
   public IntentAction totalSupply() {
-    final Function function = new Function(
+    final Function function = new ViewFunction(
         TOTAL_SUPPLY,
         contractAddress,
         Arrays.asList(),
@@ -37,7 +38,7 @@ public class ERC20 extends Contract implements IERC20 {
 
   @Override
   public IntentAction balanceOf(Address who) {
-    final Function function = new Function(
+    final Function function = new ViewFunction(
         BALANCE_OF,
         contractAddress,
         Arrays.asList(who),
@@ -48,7 +49,7 @@ public class ERC20 extends Contract implements IERC20 {
 
   @Override
   public IntentAction allowance(Address owner, Address spender) {
-    final Function function = new Function(
+    final Function function = new ViewFunction(
         ALLOWANCE,
         contractAddress,
         Arrays.asList(owner, spender),

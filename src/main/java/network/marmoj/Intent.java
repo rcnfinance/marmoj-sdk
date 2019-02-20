@@ -3,6 +3,7 @@ package network.marmoj;
 import java.math.BigInteger;
 import java.util.List;
 import network.marmoj.model.Dependency;
+import network.marmoj.model.data.domain.StateMutability;
 
 public class Intent {
 
@@ -13,18 +14,21 @@ public class Intent {
   private String to;
   private BigInteger value;
   private String data;
+  private StateMutability stateMutability;
   private BigInteger maxGasLimit;
   private BigInteger maxGasPrice;
 
   public Intent(List<Dependency> dependencies, String salt, String to, BigInteger expiration,
       BigInteger value,
-      String data, BigInteger maxGasLimit, BigInteger maxGasPrice) {
+      String data, StateMutability stateMutability,
+      BigInteger maxGasLimit, BigInteger maxGasPrice) {
     this.dependencies = dependencies;
     this.salt = salt;
     this.expiration = expiration;
     this.to = to;
     this.value = value;
     this.data = data;
+    this.stateMutability = stateMutability;
     this.maxGasLimit = maxGasLimit;
     this.maxGasPrice = maxGasPrice;
   }
@@ -61,4 +65,11 @@ public class Intent {
     return maxGasPrice;
   }
 
+  public StateMutability getStateMutability() {
+    return stateMutability;
+  }
+
+  public void setStateMutability(StateMutability stateMutability) {
+    this.stateMutability = stateMutability;
+  }
 }

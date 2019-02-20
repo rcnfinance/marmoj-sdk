@@ -2,6 +2,7 @@ package network.marmoj.model;
 
 import java.math.BigInteger;
 import network.marmoj.model.data.domain.Function;
+import network.marmoj.model.data.domain.StateMutability;
 
 public class IntentAction {
 
@@ -9,14 +10,17 @@ public class IntentAction {
   private String data = "0x0";
   private BigInteger value;
   private Function parent;
+  private StateMutability stateMutability;
 
-  public IntentAction(String to, BigInteger value) {
+  public IntentAction(String to, BigInteger value,
+      StateMutability stateMutability) {
     this.to = to;
     this.value = value;
+    this.stateMutability = stateMutability;
   }
 
   public IntentAction(String to, String data, BigInteger value, Function parent) {
-    this(to, value);
+    this(to, value, parent.getType());
     this.data = data;
     this.parent = parent;
   }
@@ -51,5 +55,13 @@ public class IntentAction {
 
   public void setParent(Function parent) {
     this.parent = parent;
+  }
+
+  public StateMutability getStateMutability() {
+    return this.stateMutability;
+  }
+
+  public void setStateMutability(StateMutability stateMutability) {
+    this.stateMutability = stateMutability;
   }
 }

@@ -7,6 +7,7 @@ import network.marmoj.Intent;
 import network.marmoj.exception.ValidationException;
 import network.marmoj.model.Dependency;
 import network.marmoj.model.IntentAction;
+import network.marmoj.model.data.domain.StateMutability;
 import network.marmoj.utils.MarmoUtils;
 
 public final class IntentBuilder {
@@ -23,6 +24,7 @@ public final class IntentBuilder {
   private String data;
   private BigInteger maxGasLimit = BigInteger.valueOf(0);
   private BigInteger maxGasPrice = BigInteger.valueOf(9999999999L);
+  private StateMutability stateMutability;
 
   private IntentBuilder() {
   }
@@ -36,6 +38,7 @@ public final class IntentBuilder {
     this.to = intentAction.getTo();
     this.value = intentAction.getValue();
     this.data = intentAction.getData();
+    this.stateMutability = intentAction.getStateMutability();
     return this;
   }
 
@@ -69,7 +72,7 @@ public final class IntentBuilder {
       throw new ValidationException("intentAction");
     }
 
-    return new Intent(dependencies, salt, to, expiration, value, data, maxGasLimit, maxGasPrice);
+    return new Intent(dependencies, salt, to, expiration, value, data, stateMutability, maxGasLimit, maxGasPrice);
   }
 
 

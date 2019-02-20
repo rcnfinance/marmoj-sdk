@@ -11,6 +11,7 @@ public class IntentTxRequest {
   private String data;
   private BigInteger minGasLimit;
   private BigInteger maxGasPrice;
+  private String stateMutability;
 
   public IntentTxRequest(Intent intentTx) {
     this.data = intentTx.getData();
@@ -18,6 +19,7 @@ public class IntentTxRequest {
     this.maxGasPrice = intentTx.getMaxGasPrice();
     this.to = intentTx.getTo();
     this.value = intentTx.getValue();
+    this.stateMutability = intentTx.getStateMutability().getValue();
   }
 
   public String getTo() {
@@ -58,5 +60,13 @@ public class IntentTxRequest {
 
   public void setMaxGasPrice(BigInteger maxGasPrice) {
     this.maxGasPrice = maxGasPrice;
+  }
+
+  public String getStateMutability() {
+    return stateMutability;
+  }
+
+  public void setStateMutability(String stateMutability) {
+    this.stateMutability = stateMutability;
   }
 }
