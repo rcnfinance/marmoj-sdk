@@ -1,4 +1,4 @@
-package network.marmoj.model.data;
+package network.marmoj.model.data.interfaces;
 
 import network.marmoj.model.IntentAction;
 import org.web3j.abi.datatypes.Address;
